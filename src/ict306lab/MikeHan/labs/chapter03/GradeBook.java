@@ -13,6 +13,10 @@ package ict306lab.MikeHan.labs.chapter03;
 public class GradeBook {
     private String courseName;  //course name for this GradeBook
     
+    public GradeBook(String name){
+        setCourseName(name);
+    }
+    
     //method to set the course name
     public void setCourseName(String name){
         this.courseName = name;
