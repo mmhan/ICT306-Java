@@ -12,6 +12,12 @@ package ict306lab.MikeHan.labs.lab01;
  */
 public class SampleClass {
     public static void main(String args[]){
-        System.out.println("Hello World!");
+        //System.out.println("Hello World!");
+        //System.out.print("Hello");
+        //System.out.println("World!");
+        System.out.println("Welcome\nto\nJava\nProgramming!");
+        
+        //printf
+        System.out.printf("Good %s, %s!\n", "Evening", "Mike");
     }
 }
