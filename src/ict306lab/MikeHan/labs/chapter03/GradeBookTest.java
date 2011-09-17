@@ -15,7 +15,7 @@ public class GradeBookTest {
     public static void main(String args[]){
         Scanner input = new Scanner(System.in);
         
-        GradeBook myGradeBook = new GradeBook();
+        GradeBook myGradeBook = new GradeBook("Bla");
         
         myGradeBook.setCourseName(input.nextLine());
         System.out.println();
