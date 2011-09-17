@@ -72,7 +72,7 @@ var Question1 = {
 			 * @return		true if not empty, false if empty
 			 **/
 			isNotEmpty: function(element){
-				return (element.value != '')
+				return (element.value.trim() != '')
 			},
 			/***
 			 * will check the value of given element to see if it's email or not.
