@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class CustomerModel {
     /**
-     * Keep count of all the models
+     * Keep count of all the customers
      */
     private int count = 0;
     
@@ -25,7 +25,7 @@ public class CustomerModel {
      */
     protected int[] ids;
     /**
-     * Index
+     * Size of the initial array and also incremental steps
      */
     static int increment = 10;
     
@@ -36,6 +36,10 @@ public class CustomerModel {
         customers = new Customer[increment];
         ids = new int[increment];
     }
+	
+	/**
+	 * Initiating with given size
+	 **/
     public CustomerModel(int size){
         CustomerModel.increment = size;
         customers = new Customer[increment];
@@ -62,6 +66,8 @@ public class CustomerModel {
     }
     /**
      * Gets a new Credit Customer and saves it in its storage
+	 * 
+	 * @return true 	at all time. Develop further to report status
      **/
     public boolean save(CreditCustomer cust){
         beforeSave();
