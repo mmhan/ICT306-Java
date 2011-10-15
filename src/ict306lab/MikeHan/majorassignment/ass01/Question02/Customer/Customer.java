@@ -5,7 +5,7 @@ package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
  * 
  * @author mmhan
  */
-public class Customer {
+abstract class GenericCustomer{
     /**
      * To keep count of the number of customers created to
      * assist auto-generating the id,
@@ -30,6 +30,18 @@ public class Customer {
      */
     protected int maxAllowed = 0;
     
+    public abstract String getAddress();
+    public abstract void setAddress(String address);
+    public abstract int getId();
+    public abstract int getMaxAllowed();
+    public abstract void setMaxAllowed(int maxAllowed);
+    public abstract String getName();
+    public abstract void setName(String name);
+    @Override
+    public abstract String toString();
+}
+
+public class Customer extends GenericCustomer{
     /**
      * Initialize an empty customer with no values.
      */
@@ -56,6 +68,7 @@ public class Customer {
      * 
      * @return address of customer
      */
+    @Override
     public String getAddress() {
         return address;
     }
@@ -64,6 +77,7 @@ public class Customer {
      * 
      * @param address 
      */
+    @Override
     public void setAddress(String address) {
         this.address = address;
     }
@@ -72,11 +86,12 @@ public class Customer {
      * 
      * @return 
      */
+    @Override
     public int getId() {
         return id;
     }
     /**
-     * Generate ID of a customer and set it to customer
+     * Generate ID of a customer
      * 
      * @param id 
      */
@@ -89,6 +104,7 @@ public class Customer {
      * 
      * @return maxAllowed 
      */
+    @Override
     public int getMaxAllowed() {
         return maxAllowed;
     }
@@ -97,6 +113,7 @@ public class Customer {
      * 
      * @param maxAllowed 
      */
+    @Override
     public void setMaxAllowed(int maxAllowed) {
         this.maxAllowed = maxAllowed;
     }
@@ -105,6 +122,7 @@ public class Customer {
      * 
      * @return name
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -113,21 +131,11 @@ public class Customer {
      * 
      * @param name 
      */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
-    /**
-     * Return the number of customers that has been generated. 
-     * This is not an accurate counter. 
-     * It merely serves as auto-increment of MySQL and 
-     * will not account for deleted objects
-     * 
-     * @return 
-     */
-    private static int getCount(){
-        return Customer.count;
-    }
-    
+   
     /**
      * Will return a string representation of a customer.
      * 

@@ -16,26 +16,21 @@ public class CreditCustomer extends Customer{
      * Creates an empty CreditCustomer
      */
     public CreditCustomer(){
-        this.id = Customer.generateId();
+       super();
     }
     
     /**
      * Creates a CreditCustomer using full info
      */
     public CreditCustomer(String name, String address, int maxAllowed, String ccNumber){
-        this.name = name;
-        this.address = address;
-        this.maxAllowed = maxAllowed;
+        super(name, address, maxAllowed);
         this.ccNumber = ccNumber;
-        this.id = Customer.generateId();
     }
     /**
      * Creates a CreditCustomer out of a normal customer
      */
     public CreditCustomer(Customer customer, String ccNumber){
-        this.name = customer.name;
-        this.address = customer.address;
-        this.maxAllowed = customer.maxAllowed;
+        super(customer.name, customer.address, customer.maxAllowed);
         this.ccNumber = ccNumber;
         this.id = customer.id;
     }

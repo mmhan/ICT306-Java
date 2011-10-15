@@ -68,7 +68,7 @@ public class CustomerTest {
     public void testGetId() {
         System.out.println("getId");
         Customer instance = new Customer();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.getId();
         assertEquals(expResult, result);
     }
@@ -130,6 +130,17 @@ public class CustomerTest {
         Customer instance = new Customer("Mike","101 Main St.", 10);
         String expResult = "1\tMike\t101 Main St.\t10\t";
         String result = instance.toString();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of generateId method, of class Customer.
+     */
+    @Test
+    public void testGenerateId() {
+        System.out.println("generateId");
+        int expResult = Customer.count + 1;
+        int result = Customer.generateId();
         assertEquals(expResult, result);
     }
 }
