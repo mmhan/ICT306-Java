@@ -10,11 +10,11 @@ public class Customer {
      * To keep count of the number of customers created to
      * assist auto-generating the id
      */
-    protected static int count = -1;
+    protected static int count = 0;
     protected int id;
-    String name;
-    String address;
-    int maxAllowed;
+    String name = "";
+    String address = "";
+    int maxAllowed = 0;
     
     /**
      * Initialize an empty customer with no values.
@@ -34,6 +34,7 @@ public class Customer {
         this.name = name;
         this.address = address;
         this.maxAllowed = maxAllowed;
+        this.generateId();
     }
     /**
      * Get the address of the customer
@@ -108,7 +109,7 @@ public class Customer {
      * 
      * @return 
      */
-    private static int GetCount(){
+    private static int getCount(){
         return Customer.count;
     }
     
@@ -117,7 +118,18 @@ public class Customer {
      * 
      * @return string
      */
+    @Override
     public String toString(){
-        return "";
+        String[] array = new String[] {
+            Integer.toString(this.id), 
+            this.name, 
+            this.address, 
+            Integer.toString(this.maxAllowed)
+        };
+        String str = "";
+        for(int i = 0; i < array.length; i++){
+            str += (array[i] + "\t");
+        }
+        return str;
     }
 }
