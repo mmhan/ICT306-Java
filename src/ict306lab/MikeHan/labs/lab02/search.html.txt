@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+<title>Search Engines</title>
+<style>
+*{margin: 0; padding: 0;}
+#header, ul li{
+	padding: 10px;
+	display: block;
+	border:1px solid;
+	border-width: 0 1px 1px 1px;
+	
+}
+#header{
+	background: #9ACD32;
+}
+ul li{background: #98FB98;}
+ul li a{background: #fff; padding: 5px; display:inline-block;}
+ul li a img{border:0; display:block;}
+</style>
+</head>
+<body>
+	<header id="header">
+	Click on the icon to go to your desired search engine
+	</header>
+	<div id="content">
+		<ul>
+		<li><a href="http://www.google.com/"><img src="http://www.google.com/intl/en_com/images/srpr/logo3w.png" /></a></li>
+		<li><a href="http://www.yahoo.com/"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yahoo_Logo.svg/200px-Yahoo_Logo.svg.png" /></a></li>
+		<li><a href="http://www.msn.com/"><img src="http://col.stb.s-msn.com/i/B7/EB75D45B8948F72EE451223E95A96.gif" /></a></li>
+		<li><a href="http://www.msn.com/"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Bing_logo.svg/200px-Bing_logo.svg.png" /></a></li>
+		</ul>
+	</div><!--/content-->
+</body>
+</html>

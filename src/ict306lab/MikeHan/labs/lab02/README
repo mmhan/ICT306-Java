@@ -1,0 +1,16 @@
+Question 2: 
+2.1) find all lines in a big text file that do not have capital letter A in them
+    grep -v "A" bigtext.txt
+
+--
+2.2) ditto, but do have capital B as well as no capital As (do this in two wasy: via one regular expression and via a pipeline of several greps)
+
+    grep -v "A" bigtext.txt | grep "B"
+
+Based on look ahead and look behind negation, the command I execute is
+
+    grep -e (?!A)B(?!A) bigtext.txt
+
+However, due to shell's way of handling exclamation marks the regexp didn't acieve the purpose.
+
+Question 3: HTML Page
