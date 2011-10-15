@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This class is here to basically test out if the implemnentation works or not
+ * Nothing much to be tested out to be honest.
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
@@ -46,8 +46,6 @@ public class GenericCustomerTest {
         String expResult = "";
         String result = instance.getAddress();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -56,11 +54,9 @@ public class GenericCustomerTest {
     @Test
     public void testSetAddress() {
         System.out.println("setAddress");
-        String address = "";
+        String expected = "";
         GenericCustomer instance = new GenericCustomerImpl();
-        instance.setAddress(address);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expected, instance.getAddress());
     }
 
     /**
@@ -73,8 +69,6 @@ public class GenericCustomerTest {
         int expResult = 0;
         int result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -87,8 +81,6 @@ public class GenericCustomerTest {
         int expResult = 0;
         int result = instance.getMaxAllowed();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -100,8 +92,7 @@ public class GenericCustomerTest {
         int maxAllowed = 0;
         GenericCustomer instance = new GenericCustomerImpl();
         instance.setMaxAllowed(maxAllowed);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(maxAllowed, instance.maxAllowed);
     }
 
     /**
@@ -114,8 +105,6 @@ public class GenericCustomerTest {
         String expResult = "";
         String result = instance.getName();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -127,8 +116,18 @@ public class GenericCustomerTest {
         String name = "";
         GenericCustomer instance = new GenericCustomerImpl();
         instance.setName(name);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getRented method, of class GenericCustomer.
+     */
+    @Test
+    public void testGetRented() {
+        System.out.println("getRented");
+        GenericCustomer instance = new GenericCustomerImpl();
+        int expResult = 0;
+        int result = instance.getRented();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -141,39 +140,52 @@ public class GenericCustomerTest {
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     public class GenericCustomerImpl extends GenericCustomer {
 
+        @Override
         public String getAddress() {
             return "";
         }
 
+        @Override
         public void setAddress(String address) {
         }
 
+        @Override
         public int getId() {
             return 0;
         }
 
+        @Override
         public int getMaxAllowed() {
             return 0;
         }
 
+        @Override
         public void setMaxAllowed(int maxAllowed) {
         }
 
+        @Override
         public String getName() {
             return "";
         }
 
+        @Override
         public void setName(String name) {
         }
 
+        @Override
         public String toString() {
             return "";
         }
+        
+        @Override
+        public int getRented(){
+            return 0;
+        }
     }
+
+    
 }

@@ -41,12 +41,10 @@ public class VideoCopyTest {
      */
     @Test
     public void testConstructor() {
-        System.out.println("Const");
-        int expResult = 0;
+        System.out.println("Constructor");
+        int expResult = VideoCopy.count + 1;
         int result = VideoCopy.generateId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -55,12 +53,11 @@ public class VideoCopyTest {
     @Test
     public void testGetTitle() {
         System.out.println("getTitle");
-        VideoCopy instance = null;
-        VideoTitle expResult = null;
+        VideoTitle expResult = new VideoTitle("LOTR", 2.5, 2);
+        VideoCopy instance = new VideoCopy(expResult);
+        
         VideoTitle result = instance.getTitle();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult.name, result.name);
     }
 
     /**
@@ -71,6 +68,18 @@ public class VideoCopyTest {
         System.out.println("generateId");
         int expResult = VideoCopy.count + 1;
         int result = VideoCopy.generateId();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getId method, of class VideoCopy.
+     */
+    @Test
+    public void testGetId() {
+        System.out.println("getId");
+        VideoCopy instance = new VideoCopy(new VideoTitle("Title", 2.0, 1));
+        int expResult = VideoCopy.count;
+        int result = instance.getId();
         assertEquals(expResult, result);
     }
 }

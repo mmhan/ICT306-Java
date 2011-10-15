@@ -81,6 +81,39 @@ public class CreditCustomer extends Customer{
         this.setBalance(0.0);
     }
     
+    @Override
+    public boolean returnCopy(int id){
+        //the following code is more or less the same with the parent's code
+        //it has only been copied anti-patternly due to:
+        // 1) The project scope doesn't require it
+        // 2) It's much faster to implement it this way. 
+        //    (Other than seperating this loop into three: -findKey(), -shiftArray()
+        //     and ~getPriceForCopy(id))
+        int key = -1;
+        for(int i = 0; i < rented; i++){
+           if(copies[i].getId() == id){
+               key = i;
+               //this is the additional code that was added in.
+               this.addBalance(copies[key].getTitle().cost);
+           }
+           if(key != -1){
+               //shift all copies a place up
+               try{
+                   copies[i - 1] = copies[i];
+               }catch (ArrayIndexOutOfBoundsException e){
+                   //looks like this is the first copy in the array
+                   //do nothing.
+               }               
+               copies[i] = null;
+           }
+        }
+        if(key != -1){
+            rented--;
+            return true;
+        }else{
+            return false;
+        }
+    }
     /**
      * To String for this object
      */
@@ -94,10 +127,10 @@ public class CreditCustomer extends Customer{
             this.getCcNumber(),
             Double.toString(this.balance)
         };
-        String ret = "";
-        for(int i = 0; i < array.length; i++){
-            ret += (array[i] + "\t");
-        }
+        String ret = super.toString();
+        ret += "CC:\t\t\t" + this.getCcNumber() + "\n";
+        ret += "Balance:\t\t" + Double.toString(this.balance) + "\n";
+        
         return ret;
     }
 }

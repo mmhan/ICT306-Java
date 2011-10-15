@@ -27,6 +27,10 @@ public class VideoCopy {
         return this.title;
     }
     
+    public int getId(){
+        return this.id;
+    }
+    
     /**
      * Generate ID of a video copy
      * 

@@ -4,6 +4,8 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoCopy;
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoTitle;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -126,9 +128,28 @@ public class CreditCustomerTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        String expResult = Customer.count + "\tMike\t101 Main Street\t10\t1234\t0.0\t";
-        String result = instance.toString();
-        //System.out.println(expResult + "\n" + result);
+        System.out.println(instance.toString());
+    }
+
+    /**
+     * Test of returnCopy method, of class CreditCustomer.
+     */
+    @Test
+    public void testReturnCopy() {
+        System.out.println("returnCopy");
+        
+        VideoTitle title = new VideoTitle("Test", 2.0, 1);
+        VideoCopy copy = new VideoCopy(title);
+        CreditCustomer cCust = new CreditCustomer("Test Customer", "101 Bla", 1, "1234");
+        cCust.rent(copy);
+        boolean expResult = true;
+        boolean result = cCust.returnCopy(copy.getId());
+        assertEquals(expResult, result);
+        assertEquals(0, instance.getRented());
+        
+        System.out.println(" - testing to return a copy that the user didn't rent");
+        expResult = false;
+        result = cCust.returnCopy(500);
         assertEquals(expResult, result);
     }
 }
