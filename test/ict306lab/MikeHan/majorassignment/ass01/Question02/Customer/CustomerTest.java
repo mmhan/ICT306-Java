@@ -4,7 +4,6 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
-import com.sun.org.apache.bcel.internal.generic.IADD;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -35,6 +34,7 @@ public class CustomerTest {
     
     @After
     public void tearDown() {
+        Customer.count = 0;
     }
 
     /**

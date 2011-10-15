@@ -8,18 +8,33 @@ package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 public class Customer {
     /**
      * To keep count of the number of customers created to
-     * assist auto-generating the id
+     * assist auto-generating the id,
+     * Not an actual representation of how many customers is in existence.
      */
     protected static int count = 0;
+    /**
+     * To store the id of the customer.
+     */
     protected int id;
-    String name = "";
-    String address = "";
-    int maxAllowed = 0;
+    /**
+     * To store the name of Customer.
+     */
+    protected String name = "";
+    /**
+     * To store the address of Customer
+     */
+    protected String address = "";
+    /**
+     * To store the maximum number of videos that a customer is allowed to rent
+     * at the same time.
+     */
+    protected int maxAllowed = 0;
     
     /**
      * Initialize an empty customer with no values.
      */
     public Customer() {
+        this.id = Customer.generateId();
     }
     
     /**
@@ -34,7 +49,7 @@ public class Customer {
         this.name = name;
         this.address = address;
         this.maxAllowed = maxAllowed;
-        this.generateId();
+        this.id = Customer.generateId();
     }
     /**
      * Get the address of the customer
@@ -65,9 +80,9 @@ public class Customer {
      * 
      * @param id 
      */
-    private void generateId() {
+    protected static int generateId() {
         /** use private static function to generate **/
-        this.id = ++count;
+        return ++count;
     }
     /**
      * Get maximum rental of copies allowed.
