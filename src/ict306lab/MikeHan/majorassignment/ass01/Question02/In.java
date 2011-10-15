@@ -7,10 +7,11 @@ package ict306lab.MikeHan.majorassignment.ass01.Question02;
 import java.util.Scanner;
 
 /**
- *
+ * A helper class for VideoRental system
+ * 
  * @author mmhan
  */
-public class InputHelper {
+public class In {
     
     private static Scanner scan = new Scanner(System.in);
     
@@ -25,35 +26,35 @@ public class InputHelper {
         
         System.out.println("getText");
         String expected = "car";
-        String result = InputHelper.getText("Please enter 'car'.");
+        String result = In.getText("Please enter 'car'.");
         System.out.println(expected.equals(result) ? "Okay" : "Fail");
         
-        result = InputHelper.getText("Please enter 'back'");
+        result = In.getText("Please enter 'back'");
         System.out.println(result == null ? "Okay" : "Fail");
         
-        result = InputHelper.getText("Please enter 'exit'", false);
+        result = In.getText("Please enter 'exit'", false);
         System.out.println(result == null ? "Okay" : "Fail");
         
         System.out.println("getInt");
-        int iresult = InputHelper.getInt("Enter 1");
+        int iresult = In.getInt("Enter 1");
         System.out.println(iresult == 1  ? "Okay" : "Fail");
         
-        iresult = InputHelper.getInt("Enter -1", false);
+        iresult = In.getInt("Enter -1", false);
         System.out.println(iresult == -1  ? "Okay" : "Fail");
         
         System.out.println("getDouble");
-        double dblresult = InputHelper.getDouble("Enter 1");
+        double dblresult = In.getDouble("Enter 1");
         System.out.println(dblresult == 1.0  ? "Okay" : "Fail");
         
-        dblresult = InputHelper.getDouble("Enter -1", false);
+        dblresult = In.getDouble("Enter -1", false);
         System.out.println(dblresult == -1.0  ? "Okay" : "Fail");
         
         System.out.println("getChoice");
-        iresult = InputHelper.getChoice("Choose anything.", 
+        iresult = In.getChoice("Choose anything.", 
                 new String[]{"A", "B", "C", "D"}, true);
         System.out.println(iresult < 4 && iresult != -1 ? "Okay" : "Fail");
         
-        iresult = InputHelper.getChoice("Choose to exit", 
+        iresult = In.getChoice("Choose to exit", 
                 new String[]{"A", "B"} , true);
         System.out.println(iresult == -1 ? "Okay" : "Fail");
     }
@@ -65,7 +66,7 @@ public class InputHelper {
      * @return input or null if the user decides to exit
      */
     public static String getText(String q){
-        return InputHelper.getText(q, true);
+        return In.getText(q, true);
     }
     /**
      * Will get the text for question
@@ -76,10 +77,10 @@ public class InputHelper {
      */
     public static String getText(String q, boolean isInMenu){
         System.out.println(q);
-        InputHelper.printExit(isInMenu);
-        String input = InputHelper.scan.nextLine();
-        if(input.isEmpty()) return InputHelper.getText(q, isInMenu);
-        if(InputHelper.isToExit(isInMenu, input)) return null;
+        In.printExit(isInMenu);
+        String input = In.scan.nextLine();
+        if(input.isEmpty()) return In.getText(q, isInMenu);
+        if(In.isToExit(isInMenu, input)) return null;
         
         return input;
     }
@@ -90,7 +91,7 @@ public class InputHelper {
      * @return 
      */
     public static int getInt(String q){
-        return InputHelper.getInt(q, true);
+        return In.getInt(q, true);
     }
     /**
      * Get integer as input
@@ -101,8 +102,8 @@ public class InputHelper {
      */
     public static int getInt(String q, boolean isInMenu){
         System.out.println(q);
-        InputHelper.printExitInt(isInMenu);
-        int input = InputHelper.scan.nextInt();
+        In.printExitInt(isInMenu);
+        int input = In.scan.nextInt();
        
         return input;
     }
@@ -112,7 +113,7 @@ public class InputHelper {
      * @return 
      */
     public static double getDouble (String q){
-        return InputHelper.getDouble(q, true);
+        return In.getDouble(q, true);
     }
     /**
      * Get double as input
@@ -122,8 +123,8 @@ public class InputHelper {
      */
     public static double getDouble(String q, boolean isInMenu){
         System.out.println(q);
-        InputHelper.printExitInt(isInMenu);
-        double input = InputHelper.scan.nextDouble();
+        In.printExitInt(isInMenu);
+        double input = In.scan.nextDouble();
                 
         return input;
     }
@@ -139,14 +140,14 @@ public class InputHelper {
         for(int i = 0; i < q.length; i++){
             System.out.println(" [" + (i+1) + "] " + q[i]);
         }
-        int input = InputHelper.getInt("", isInMenu);
+        int input = In.getInt("", isInMenu);
         if(input == -1 ) return input;
         try{
             System.out.println("You chose - " + q[input]);
             return input;
         }catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Invalid Choice.");
-            return InputHelper.getChoice(pre, q, isInMenu);
+            return In.getChoice(pre, q, isInMenu);
         }
     }
     
