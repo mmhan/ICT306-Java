@@ -4,6 +4,7 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoCopy;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -131,5 +132,17 @@ public class CustomerModelTest {
             Integer.toString(cust.getId())
         };
         assertEquals(expResult, allRentedCustomers[0]);
+    }
+
+    /**
+     * Test of findRentedCopies method, of class CustomerModel.
+     */
+    @Test
+    public void testFindRentedCopies() {
+        System.out.println("findRentedCopies");
+        int id = 0;
+        VideoCopy[] expResult = instance.customers[0].copies;
+        VideoCopy[] result = instance.findRentedCopies(instance.customers[0].id);
+        assertEquals(expResult, result);
     }
 }

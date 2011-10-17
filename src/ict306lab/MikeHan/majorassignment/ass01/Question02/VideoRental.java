@@ -77,7 +77,8 @@ class VideoRentalController{
                 case 0: //List all titles
                     this.cListAllTitles("All titles are listed below. \n"
                 + "Please enter the number that belongs "
-                + "to the title to see the details.\n");
+                + "to the title to see the details.\n"
+                + "Title Name <id> (Available Number of Copies) \n");
                     break;
                 case 1: //Add New Title
                     this.cAddNewTitle();
@@ -94,6 +95,7 @@ class VideoRentalController{
                     this.cRentVideo();
                     break;
                 case 5: //Return Video
+                    this.cReturnVideo();
                     break;
                 case 6: //Import Test Data
                     this.cImportTestData();
@@ -118,8 +120,7 @@ class VideoRentalController{
         }
         int choice = Cli.choice(
                 instruction 
-                + "Title Name <id> (Available Number of Copies) \n"
-                + "============================================", 
+                + "\n============================================", 
                 titleStr, true);
         return choice;
     }
@@ -199,7 +200,7 @@ class VideoRentalController{
         }
         int choice = Cli.choice(
                 instruction
-                + "============================================", 
+                + "\n============================================", 
                 custsStr, true);
         return choice;
     }
@@ -315,7 +316,30 @@ class VideoRentalController{
      * Option 6 - Return Video
      */
     private void cReturnVideo(){
+        String[][] rented = this.customers.getRentedList();
+        int cust; //just an initial val to start with
+        cust = this.vListAllCustomers(rented, "Select Customer");
+        if(cust == -1) return;
+        GenericCustomer customer = customers.find(Integer.parseInt(rented[cust][1]));
         
+        VideoCopy[] copies = customers.findRentedCopies(customer.getId());
+        String[][] titles = new String[customer.getRented()][];
+        for(int i = 0; i < customer.getRented(); i++){
+            titles[i] = new String[]{
+                copies[i].getTitle().name, 
+                Double.toString(copies[i].getTitle().cost)};
+        }
+        int choice = this.vListAllTitles(titles, "Select the copie to return."
+                + "\nTitle - (cost)");
+        if(choice == -1) return;
+        boolean returnCopy = customer.returnCopy(copies[choice].getId());
+        if(returnCopy){
+            Cli.out("Video successfully returned.");
+            Cli.pause();
+        }else{
+            Cli.out("Hmm... something's wrong. Please try again.");
+            Cli.pause();
+        }
     }
     /*************************************
      * Option 7 - Import Test Data

@@ -4,6 +4,7 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoCopy;
 import java.util.Arrays;
 
 /**
@@ -127,6 +128,13 @@ public class CustomerModel {
         return customers[this.findKey(id)];
     }
     
+    /***
+     * Find the rented videos of the given customer and return.
+     * 
+     */
+    public VideoCopy[] findRentedCopies(int id){
+        return find(id).copies;
+    }
     /**
      * Find the key of the customer in the storage.
      * 
