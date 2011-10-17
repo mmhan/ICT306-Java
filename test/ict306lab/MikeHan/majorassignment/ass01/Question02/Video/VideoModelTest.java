@@ -156,13 +156,14 @@ public class VideoModelTest {
     @Test
     public void testFindAllTitles() {
         System.out.println("findAllTitles");
-        String[] expResult = new String[]{
-            "Cars 2 (5)",
-            "Cars (5)",
-            "Wall-E (5)"
+        String[][] expResult = new String[][]{
+            new String[]{"Cars 2", "5"},
+            new String[]{"Cars", "5"},
+            new String[]{"Wall-E", "5"}
         };
-        String[] result = model.findAllTitles();
-        assertEquals(expResult, result);
-        
+        String[][] result = model.findAllTitles();
+        for(int i = 0; i < 3; i++){
+            assertEquals(expResult[i], result[i]);
+        }
     }
 }

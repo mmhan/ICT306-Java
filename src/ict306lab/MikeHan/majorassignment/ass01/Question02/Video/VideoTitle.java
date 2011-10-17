@@ -33,4 +33,18 @@ public class VideoTitle {
         this.cost = cost;
         this.rentalDays = rentalDays;
     }
+    /**
+     * This methods turns VideoTitle into string.
+     * 
+     * @return string
+     */
+    @Override
+    public String toString(){
+        return "======================================\n" + 
+                "Video Title Info\n" + 
+                "======================================\n" + 
+                "Name:\t\t" + this.name + "\n" +
+                "Cost:\t\t" + Double.toString(this.cost) + "\n" +
+                "Rental Days:\t" + Integer.toString(this.rentalDays) + "\n";
+    }
 }

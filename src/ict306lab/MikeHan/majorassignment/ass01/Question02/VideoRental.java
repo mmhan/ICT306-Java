@@ -8,6 +8,7 @@ import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CreditCustome
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.Customer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CustomerModel;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoModel;
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoTitle;
 
 
 /**
@@ -71,6 +72,7 @@ class VideoRentalController{
         while(choice != -1){
             switch(choice){
                 case 0: //List all titles
+                    this.cListAllTitles();
                     break;
                 case 1: //Add New Title
                     break;
@@ -98,16 +100,41 @@ class VideoRentalController{
     /**
      * View to list all titles.
      */
-    private void vListAllTitles(){
-        
+    private int vListAllTitles(String[][] titles){
+        String[] titleStr =  new String[titles.length];
+        for(int i = 0; i < titles.length ; i++){
+            titleStr[i] = titles[i][0] + " (" + titles[i][1] + ")";
+        }
+        int choice = Cli.choice(
+                "All available titles are listed below. \n"
+                + "Please enter the number that belongs "
+                + "to the title to see the details.\n"
+                + "Title Name <id> (Available Number of Copies) \n"
+                + "============================================", 
+                titleStr, true);
+        return choice;
     }
     /**
      * Controller to list all titles
      */
     private void cListAllTitles(){
-        
-        this.vListAllTitles();
+        String[][] titles = catalog.findAllTitles();
+        int choice = this.vListAllTitles(titles);
+        while(choice != -1){
+            cListTitle(titles[choice][0]);
+            choice = this.vListAllTitles(titles);
+        }
     }
+    /**
+     * Controller to list the given title
+     * @param id 
+     */
+    private void cListTitle(String title){
+        VideoTitle titleObj = catalog.findTitle(title);
+        Cli.out(titleObj.toString());
+        Cli.pause();
+    }
+    
     /*************************************
      * Option 2 - Add new titles
      */

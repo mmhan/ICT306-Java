@@ -111,15 +111,17 @@ public class VideoModel {
     /**
      * Will find the data required for listing all the titles
      */
-    public String[] findAllTitles(){
-        String[] titlesStr = new String[titlesCount];
+    public String[][] findAllTitles(){
+        String[][] titlesStr = new String[titlesCount][2];
         for(int i = 0; i < titlesCount; i++){
-            titlesStr[i] = this.titles[i].name;
-            titlesStr[i] += " (" 
-                    + this.findAvailableCopyCount(this.titles[i].name)
-                    + ")";
+            titlesStr[i] = new String[2];
+            titlesStr[i][0] = this.titles[i].name;
+            titlesStr[i][1] = Integer.toString(this.findAvailableCopyCount(this.titles[i].name));
         }
         return titlesStr;
+    }
+    public VideoTitle findTitle(String title){
+        return titles[this.findTitleKey(title)];
     }
     /**
      * Using given parameters add new video titles and its copies to storage

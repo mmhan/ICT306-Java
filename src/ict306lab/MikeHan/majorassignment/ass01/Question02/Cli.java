@@ -4,6 +4,7 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -164,8 +165,14 @@ public class Cli {
         Cli.out(q);
         Cli.printExitInt(isInMenu);
         Cli.prompt();
-        int input = Cli.scan.nextInt();
-       
+        int input;
+        try{
+            input = Cli.scan.nextInt();
+        }catch (InputMismatchException e){
+            Cli.scan.nextLine();
+            return Cli.num(q, isInMenu);
+        }
+        Cli.scan.nextLine();
         return input;
     }
     /**
@@ -187,7 +194,12 @@ public class Cli {
         Cli.printExitInt(isInMenu);
         Cli.prompt();
         double input = Cli.scan.nextDouble();
-                
+        try{
+            input = Cli.scan.nextDouble();
+        }catch (InputMismatchException e){
+            Cli.scan.nextLine();
+            return Cli.dbl(q, isInMenu);
+        }
         return input;
     }
     /**
