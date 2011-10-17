@@ -1,0 +1,23 @@
+VideoRental CLI application
+================================
+
+Author: Myat Min Han (Mike)
+Date : 17th October 2010
+
+Requirements/Specification
+--------------------------------
+
+This program is a command line interface (CLI) program that is designed and created to assist with administration jobs of the video rental manager to allow keeping track of inventory and transactions. 
+
+Assumptions
+------------
+
+* Since it's assumed to be used by the manager of the video rental shop on the shop's terminal, there's no logging in involved as of this moment. (also due to the fact that the requirements never specified this.)
+* The current CLI system also doesn't support removing or updating titles, customers and titles though the classes themselves already have support for those.
+* All the data are stored in memory as of this moment and saving the data can be easily achived by serializing `VideoModel catalog` and `CustomerModel customers` properties of the VideoRental object.
+* Currenlty no memory optimization has been done, and no stress test has been performed to ensure the program's speedy performance on the scale of hundred titles and hundred customers.
+
+User Guide
+------------
+
+

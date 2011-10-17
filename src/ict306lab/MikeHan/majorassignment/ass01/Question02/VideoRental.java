@@ -4,6 +4,7 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02;
 
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Cli;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CreditCustomer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.Customer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CustomerModel;
