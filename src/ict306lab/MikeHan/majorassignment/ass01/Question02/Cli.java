@@ -30,7 +30,7 @@ public class Cli {
         Cli.out("confirm");
         Cli.out(Cli.confirm("Select Yes.")? "Okay" : "Fail");
         Cli.out(!Cli.confirm("Select No.")? "Okay" : "Fail");
-        Cli.out(!Cli.confirm("Select something else.")? "Okay" : "Fail");
+        Cli.confirm("Select something else.");
         
         
         Cli.out("str");
@@ -193,10 +193,11 @@ public class Cli {
         Cli.out(q);
         Cli.printExitInt(isInMenu);
         Cli.prompt();
-        double input = Cli.scan.nextDouble();
+        double input;
         try{
             input = Cli.scan.nextDouble();
         }catch (InputMismatchException e){
+            Cli.out(e.toString());
             Cli.scan.nextLine();
             return Cli.dbl(q, isInMenu);
         }

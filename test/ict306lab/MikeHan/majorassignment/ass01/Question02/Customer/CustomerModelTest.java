@@ -86,4 +86,21 @@ public class CustomerModelTest {
         instance.save(customerA);
         assertEquals(3, instance.findKey(customerA.id));
     }
+
+    /**
+     * Test of getList method, of class CustomerModel.
+     */
+    @Test
+    public void testGetList() {
+        System.out.println("getList");
+        String[][] expResult = new String[][]{
+            new String[]{"Mike", "1"},
+            new String[]{"John", "2"},
+            new String[]{"Cindy", "3"}
+        };
+        String[][] result = instance.getList();
+        for(int i = 0; i < result.length; i++){
+            assertEquals(expResult[i][0], result[i][0]);
+        }
+    }
 }

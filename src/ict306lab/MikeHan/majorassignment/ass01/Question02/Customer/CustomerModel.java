@@ -54,12 +54,16 @@ public class CustomerModel {
     }
     
     /**
-     * Returns the whole collection of customers
+     * Returns the whole collection of customers in string
+     * 
+     * @return  a 2d array of customers' names and id
      */
-    public String[] getList(){
-        String[] names = new String[this.count];
+    public String[][] getList(){
+        String[][] names = new String[this.count][2];
         for(int i = 0; i < count; i++){
-            names[i] = this.customers[i].getName();
+            names[i] = new String[2];
+            names[i][0] = this.customers[i].getName();
+            names[i][1] = Integer.toString(this.customers[i].getId());
         }
         return names;
     }

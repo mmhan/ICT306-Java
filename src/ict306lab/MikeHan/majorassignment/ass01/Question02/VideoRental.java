@@ -75,6 +75,7 @@ class VideoRentalController{
                     this.cListAllTitles();
                     break;
                 case 1: //Add New Title
+                    this.cAddNewTitle();
                     break;
                 case 2: //List all Customers
                     break;
@@ -137,10 +138,49 @@ class VideoRentalController{
     
     /*************************************
      * Option 2 - Add new titles
+     *
+     * The controller for adding new title.
+     * 
+     * There will not be any view for this to make it less complicated
+     * 
+     * TODO: develop this further to let user take a step back.
      */
+    private void cAddNewTitle(){
+        //Get string
+        String iName = Cli.str("Please enter the name of the new title.");
+        if(iName == null) return;
+        
+        //get double
+        double cost = Cli.dbl("Please enter the cost of the title per day."
+                + "(In decimal number)");
+        if(cost == -1) return;
+        
+        //get int
+        int rentalDays = Cli.num("Please enter the number of days"
+                + " the title is allowed to be rented.");
+        if(rentalDays == -1) return;
+        
+        //get int
+        int copies = Cli.num("Please enter the number of copies"
+                + " to add to catalog");
+        if(copies == -1) return;
+        
+        boolean save = catalog.save(iName, cost, rentalDays, copies);
+        if(save){
+            Cli.out("New title: '" + iName + "' is successfully created.");
+            Cli.pause();
+        }else{
+            Cli.out("Error: There seems to be a problem in creating the new title."
+                    + "Please try again.");
+            cAddNewTitle();
+        }
+    }
     /*************************************
      * Option 3 - List all Customers
      */
+    private void cListAllCustomers(){
+        customers.getList();
+    }
     /*************************************
      * Option 4 - Add new Customers
      */
