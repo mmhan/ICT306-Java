@@ -55,6 +55,7 @@ c) Proof of testing and sample results
 ---
 
 The testing is done on several levels,
+
 	- testing the generators and HTML
 		- All I needed was to open the page in browser and visually confirm that the generators produce expected results.
 	- testing the validation functions
