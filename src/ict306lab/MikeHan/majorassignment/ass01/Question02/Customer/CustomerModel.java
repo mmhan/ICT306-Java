@@ -69,6 +69,32 @@ public class CustomerModel {
     }
     
     /**
+     * Returns the rented customers in strings
+     * 
+     * @return a 2d array of customers who rented something.
+     */
+     public String[][] getRentedList(){
+        String[][] names = new String[this.count][2];
+        int rentedCustomers = 0;
+        for(int i = 0; i < count; i++){
+            if(this.customers[i].getRented() > 0){
+                names[i] = new String[2];
+                names[i][0] = this.customers[i].getName();
+                names[i][1] = Integer.toString(this.customers[i].getId());
+                rentedCustomers++;
+            }
+        }
+        String[][] retNames = new String[rentedCustomers][2];
+        int retNamesCount = 0;
+        for(int i = 0; i < count; i++){
+            if(names[i][0] != null){
+                retNames[retNamesCount++] = names[i];
+            }
+        }
+        return retNames;
+    }
+    
+    /**
      * Gets a new customer and saves it in its storage
      * 
      */

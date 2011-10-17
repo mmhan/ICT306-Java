@@ -115,4 +115,21 @@ public class CustomerModelTest {
         GenericCustomer result = instance.find(GenericCustomer.count);
         assertEquals(cust, result);
     }
+
+    /**
+     * Test of getRentedList method, of class CustomerModel.
+     */
+    @Test
+    public void testGetRentedList() {
+        System.out.println("getRentedList");
+        Customer cust = new Customer("Milo", "101 bla", 1);
+        cust.rented = 1;
+        instance.save(cust);
+        String[][] allRentedCustomers = instance.getRentedList();
+        String[] expResult = new String[]{
+            cust.getName(), 
+            Integer.toString(cust.getId())
+        };
+        assertEquals(expResult, allRentedCustomers[0]);
+    }
 }
