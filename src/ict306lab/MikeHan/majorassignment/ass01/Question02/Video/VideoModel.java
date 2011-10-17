@@ -18,6 +18,10 @@ public class VideoModel {
     
     /**
      * Storage of all the video titles
+     * 
+     * Since the name of the video titles are used as index at the moment
+     * this design will fail at storing duplicate titles
+     * Recommended to improve on this using .hashCode();
      */
     protected VideoTitle[] titles;
     
@@ -79,28 +83,43 @@ public class VideoModel {
         return copiesCount;
     }
     
-    /**
-     * Return the copies count of a certain title in the data
-     * 
-     * @param VideoTitle    
-     */
-    public int getCopiesCount(VideoTitle title){
-        int count = 0;
-        for(int i = 0; i < copiesCount; i++){
-            if(copies[i].getTitle().equals(title)) count++;
-        }
-        return count;
-    }
     
     /**
      * Will find the copies count of a certain title in the data
      * @param   title
      * @return  count of title.
      */
-    public int getCopiesCount(String title){
-        //TODO: implement this after getTitleKey
-        //return this.getCopiesCount(null);
-        return 0;
+    public int findCopiesCount(String title){
+        int count = 0;
+        for(int i = 0; i < this.copiesCount; i++){
+            if(title.equals(this.copies[i].getTitle().name)) count++;
+        }
+        return count;
+    }
+    /**
+     * Will find the available copy count of a certain title
+     */
+    public int findAvailableCopyCount(String title){
+        int count = 0;
+        for(int i = 0; i < this.copiesCount; i++){
+            if(title.equals(this.copies[i].getTitle().name) &&
+                    !this.copies[i].isRented()) 
+                count++;
+        }
+        return count;
+    }
+    /**
+     * Will find the data required for listing all the titles
+     */
+    public String[] findAllTitles(){
+        String[] titlesStr = new String[titlesCount];
+        for(int i = 0; i < titlesCount; i++){
+            titlesStr[i] = this.titles[i].name;
+            titlesStr[i] += " (" 
+                    + this.findAvailableCopyCount(this.titles[i].name)
+                    + ")";
+        }
+        return titlesStr;
     }
     /**
      * Using given parameters add new video titles and its copies to storage

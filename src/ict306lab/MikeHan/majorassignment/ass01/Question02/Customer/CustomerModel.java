@@ -54,6 +54,17 @@ public class CustomerModel {
     }
     
     /**
+     * Returns the whole collection of customers
+     */
+    public String[] getList(){
+        String[] names = new String[this.count];
+        for(int i = 0; i < count; i++){
+            names[i] = this.customers[i].getName();
+        }
+        return names;
+    }
+    
+    /**
      * Gets a new customer and saves it in its storage
      * 
      */

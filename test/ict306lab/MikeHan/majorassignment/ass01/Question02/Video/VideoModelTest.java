@@ -70,34 +70,15 @@ public class VideoModelTest {
      * Test of getCopiesCount method, of class VideoModel.
      */
     @Test
-    public void testGetCopiesCount_VideoTitle() {
-        System.out.println("getCopiesCount - Title given");        
-        int expResult = 0;
-        int result = model.getCopiesCount(new VideoTitle("Bla", 2, 2));
-        assertEquals(expResult, result);
-        
-        expResult = 5;
-        result = model.getCopiesCount(model.titles[0]);
-        assertEquals(expResult, result);
-        
-        expResult = 5;
-        result = model.getCopiesCount(new VideoTitle("Cars", 2, 3));
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of getCopiesCount method, of class VideoModel.
-     */
-    @Test
-    public void testGetCopiesCount_String() {
+    public void testFindCopiesCount_String() {
         System.out.println("getCopiesCount");
         String title = "";
         int expResult = 0;
-        int result = model.getCopiesCount(title);
+        int result = model.findCopiesCount(title);
         assertEquals(expResult, result);
         
         expResult = 5;
-        result = model.getCopiesCount("Cars");
+        result = model.findCopiesCount("Cars");
         assertEquals(expResult, result);
     }
 
@@ -120,7 +101,6 @@ public class VideoModelTest {
         
         assertEquals(expTitleCount, model.getTitleCount());
         assertEquals(expCopiesCount, model.getCopiesCount());
-        assertEquals(expTitle, model.titles[model.getCopiesCount() - 1]);
     }
 
     /**
@@ -133,5 +113,56 @@ public class VideoModelTest {
         int result = model.findTitleKey("Cars 2");
         
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getCopiesCount method, of class VideoModel.
+     */
+    @Test
+    public void testGetCopiesCount() {
+        System.out.println("getCopiesCount");
+        int expResult = 15;
+        int result = model.getCopiesCount();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of findCopiesCount method, of class VideoModel.
+     */
+    @Test
+    public void testFindCopiesCount() {
+        System.out.println("findCopiesCount");
+        int expResult = 5;
+        int result = model.findCopiesCount("Cars");
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of findAvailableCopyCount method, of class VideoModel.
+     */
+    @Test
+    public void testFindAvailableCopyCount() {
+        System.out.println("findAvailableCopyCount");
+        int expResult = 4;
+        String nameToFind = model.copies[0].getTitle().name;
+        model.copies[0].setAsRented();
+        int result = model.findAvailableCopyCount(nameToFind);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of findAllTitles method, of class VideoModel.
+     */
+    @Test
+    public void testFindAllTitles() {
+        System.out.println("findAllTitles");
+        String[] expResult = new String[]{
+            "Cars 2 (5)",
+            "Cars (5)",
+            "Wall-E (5)"
+        };
+        String[] result = model.findAllTitles();
+        assertEquals(expResult, result);
+        
     }
 }

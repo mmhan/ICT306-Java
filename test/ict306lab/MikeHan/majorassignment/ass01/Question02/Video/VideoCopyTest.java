@@ -82,4 +82,38 @@ public class VideoCopyTest {
         int result = instance.getId();
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of isRented method, of class VideoCopy.
+     */
+    @Test
+    public void testIsRented() {
+        System.out.println("isRented");
+        VideoCopy instance = new VideoCopy(new VideoTitle("Title", 2.0, 1));
+        boolean expResult = false;
+        boolean result = instance.isRented();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setAsRented method, of class VideoCopy.
+     */
+    @Test
+    public void testSetAsRented() {
+        System.out.println("setAsRented");
+        VideoCopy instance = new VideoCopy(new VideoTitle("Title", 2.0, 1));
+        instance.setAsRented();
+        assertTrue(instance.isRented());
+    }
+
+    /**
+     * Test of setAsReturned method, of class VideoCopy.
+     */
+    @Test
+    public void testSetAsReturned() {
+        System.out.println("setAsReturned");
+        VideoCopy instance = new VideoCopy(new VideoTitle("Title", 2.0, 1));
+        instance.setAsReturned();
+        assertTrue(!instance.isRented());
+    }
 }
