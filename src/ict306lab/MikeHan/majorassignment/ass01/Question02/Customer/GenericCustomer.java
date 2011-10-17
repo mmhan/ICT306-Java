@@ -48,15 +48,57 @@ public abstract class GenericCustomer{
      */
     protected int rented = 0;
     
+    /**
+     * This should return the address
+     * @return
+     */
     public abstract String getAddress();
+    /**
+     * Should set address
+     * @param address
+     */
     public abstract void setAddress(String address);
+    /**
+     * Should get ID of customer.
+     * @return
+     */
     public abstract int getId();
+    /**
+     * Should get maxAllowed rentals
+     * @return
+     */
     public abstract int getMaxAllowed();
+    /**
+     * should set maxAllowed
+     * @param maxAllowed
+     */
     public abstract void setMaxAllowed(int maxAllowed);
+    /**
+     * should get Name
+     * @return
+     */
     public abstract String getName();
+    /**
+     * should set name
+     * @param name
+     */
     public abstract void setName(String name);
+    /**
+     * Should get num of rented copies
+     * @return
+     */
     public abstract int getRented();
+    /**
+     * should perform rent operation
+     * @param copy
+     * @return
+     */
     public abstract boolean rent(VideoCopy copy);
+    /**
+     * should return the copy
+     * @param id
+     * @return
+     */
     public abstract boolean returnCopy(int id);
     @Override
     public abstract String toString();

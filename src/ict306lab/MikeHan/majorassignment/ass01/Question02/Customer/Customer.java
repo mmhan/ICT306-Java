@@ -3,8 +3,15 @@ package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoCopy;
 import java.util.Arrays;
 
+/**
+ * 
+ * @author mmhan
+ */
 public class Customer extends GenericCustomer{
     
+    /**
+     * 
+     */
     public boolean isOverMax = false;
     
     /**
@@ -59,7 +66,7 @@ public class Customer extends GenericCustomer{
     /**
      * Generate ID of a customer
      * 
-     * @param id 
+     * @return  
      */
     protected static int generateId() {
         /** use private static function to generate **/
@@ -123,7 +130,7 @@ public class Customer extends GenericCustomer{
     /**
      * Will add the copy to the rented list.
      * 
-     * @param   VideoCopy
+     * @param copy 
      * @return  boolean for the status
      */
     @Override
@@ -148,6 +155,8 @@ public class Customer extends GenericCustomer{
     
     /**
      * Will return video 
+     * @param id
+     * @return  
      */
     @Override
     public boolean returnCopy(int id){

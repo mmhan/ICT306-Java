@@ -18,6 +18,10 @@ import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoTitle;
  * @author mmhan
  */
 public class VideoRental {
+    /**
+     * Runs program
+     * @param args
+     */
     public static void main(String[] args){
         VideoRentalController abc = new VideoRentalController("ABC");
     }

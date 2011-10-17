@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
 /**
@@ -21,6 +17,10 @@ public class CreditCustomer extends Customer{
     
     /**
      * Creates a CreditCustomer using full info
+     * @param name
+     * @param address
+     * @param maxAllowed
+     * @param ccNumber 
      */
     public CreditCustomer(String name, String address, int maxAllowed, String ccNumber){
         super(name, address, maxAllowed);
@@ -28,6 +28,8 @@ public class CreditCustomer extends Customer{
     }
     /**
      * Creates a CreditCustomer out of a normal customer
+     * @param customer
+     * @param ccNumber 
      */
     public CreditCustomer(Customer customer, String ccNumber){
         super(customer.name, customer.address, customer.maxAllowed);
@@ -41,13 +43,15 @@ public class CreditCustomer extends Customer{
     
     /**
      * Get the balance of customer
+     * @return double 
      */
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
     
     /**
      * Set the balance of customer
+     * @param balance
      */
     public void setBalance(Double balance) {
         this.balance = balance;
@@ -55,6 +59,7 @@ public class CreditCustomer extends Customer{
     
     /**
      * Get the ccNumber of customer
+     * @return ccNumber
      */
     public String getCcNumber() {
         return ccNumber;
@@ -62,6 +67,7 @@ public class CreditCustomer extends Customer{
     
     /**
      * Set the CCNumber of customer
+     * @param ccNumber
      */
     public void setCcNumber(String ccNumber) {
         this.ccNumber = ccNumber;
@@ -69,6 +75,7 @@ public class CreditCustomer extends Customer{
     
     /**
      * Add to balance with given amount
+     * @param add
      */
     public void addBalance(Double add){
         this.setBalance(this.balance + add);

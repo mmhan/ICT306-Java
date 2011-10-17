@@ -14,10 +14,19 @@ public class VideoCopy {
      */
     public static int count;
     
+    /**
+     * to store id of copy
+     */
     protected int id;
     
+    /**
+     * store its title
+     */
     protected VideoTitle title;
     
+    /**
+     * store if the copy is rented
+     */
     protected boolean isRented = false;
     
     /**
@@ -49,6 +58,7 @@ public class VideoCopy {
     /**
      * Returns the status of object.
      * 
+     * @return 
      */
     public boolean isRented(){
         return this.isRented;
@@ -69,7 +79,7 @@ public class VideoCopy {
     /**
      * Generate ID of a video copy
      * 
-     * @param id 
+     * @return 
      */
     protected static int generateId() {
         /** use private static function to generate **/

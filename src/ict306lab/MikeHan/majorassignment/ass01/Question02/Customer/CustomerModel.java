@@ -40,7 +40,9 @@ public class CustomerModel {
 	
 	/**
 	 * Initiating with given size
-	 **/
+     *
+     * @param size 
+     */
     public CustomerModel(int size){
         CustomerModel.increment = size;
         customers = new Customer[increment];
@@ -49,6 +51,7 @@ public class CustomerModel {
     
     /**
      * Returns the number of models that are stored in the data.
+     * @return 
      */
     public int getCount(){
         return count;
@@ -98,7 +101,9 @@ public class CustomerModel {
     /**
      * Gets a new customer and saves it in its storage
      * 
-     */
+      * @param cust
+      * @return  
+      */
     public boolean save(Customer cust){
         beforeSave();
         customers[count] = cust;
@@ -109,7 +114,8 @@ public class CustomerModel {
     /**
      * Gets a new Credit Customer and saves it in its storage
 	 * 
-	 * @return true 	at all time. Develop further to report status
+     * @param cust 
+     * @return true 	at all time. Develop further to report status
      **/
     public boolean save(CreditCustomer cust){
         beforeSave();
@@ -131,6 +137,8 @@ public class CustomerModel {
     /***
      * Find the rented videos of the given customer and return.
      * 
+     * @param id
+     * @return  
      */
     public VideoCopy[] findRentedCopies(int id){
         return find(id).copies;

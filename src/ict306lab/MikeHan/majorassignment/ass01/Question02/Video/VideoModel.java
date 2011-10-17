@@ -61,7 +61,9 @@ public class VideoModel {
     }
     /**
      * Initiating with given size
-     **/
+     *
+     * @param size 
+     */
     public VideoModel(int size){
         VideoModel.increment = size;
         titles = new VideoTitle[increment];
@@ -72,12 +74,14 @@ public class VideoModel {
     }
     /**
      * Returns the number of models that are stored in the data.
+     * @return 
      */
     public int getTitleCount(){
         return titlesCount;
     }
     /**
      * Returns the number of models that are stored in the data.
+     * @return 
      */
     public int getCopiesCount(){
         return copiesCount;
@@ -99,7 +103,8 @@ public class VideoModel {
     /**
      * Will find the available copy count of a certain title
      * 
-     * @param   name of the title.
+     * @param titleName 
+     * @return  
      */
     public int findAvailableCopyCount(String titleName){
         int count = 0;
@@ -114,7 +119,9 @@ public class VideoModel {
     /***
      * Will find the first available copy for given title
      * 
-     * @param   copy of the title.
+     * @param titleName 
+     * @param setRented 
+     * @return  
      */
     public VideoCopy getCopyFor(String titleName, boolean setRented){
         for(int i = 0; i < this.copiesCount; i++){
@@ -128,6 +135,7 @@ public class VideoModel {
     }
     /**
      * Will find the data required for listing all the titles
+     * @return 
      */
     public String[][] findAllTitles(){
         String[][] titlesStr = new String[titlesCount][2];
