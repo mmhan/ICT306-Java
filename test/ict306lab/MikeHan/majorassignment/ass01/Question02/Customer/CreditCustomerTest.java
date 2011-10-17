@@ -75,7 +75,7 @@ public class CreditCustomerTest {
         System.out.println("setBalance");
         Double balance = 10.2;
         instance.setBalance(balance);
-        assertEquals(instance.getBalance(), balance);
+        assertTrue(instance.getBalance() == balance);
     }
 
     /**
@@ -108,7 +108,7 @@ public class CreditCustomerTest {
         System.out.println("addBalance");
         Double add = 2.5;
         instance.addBalance(add);
-        assertEquals(instance.getBalance(), add);
+        assertTrue(instance.getBalance() == add);
     }
 
     /**

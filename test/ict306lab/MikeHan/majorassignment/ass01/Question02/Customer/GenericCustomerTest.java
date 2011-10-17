@@ -4,6 +4,7 @@
  */
 package ict306lab.MikeHan.majorassignment.ass01.Question02.Customer;
 
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoCopy;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -184,6 +185,16 @@ public class GenericCustomerTest {
         @Override
         public int getRented(){
             return 0;
+        }
+
+        @Override
+        public boolean rent(VideoCopy copy) {
+            return true;
+        }
+
+        @Override
+        public boolean returnCopy(int id) {
+            return true;
         }
     }
 
