@@ -245,7 +245,7 @@ class VideoRentalController{
         if(ccNumber == null) return;
         
         boolean status = false;
-        if(!ccNumber.equals("na")){
+        if(ccNumber.equals("na")){
             status = this.customers.save(new Customer(cName, add, maxAllowed));
         }else{
             status = this.customers.save(new CreditCustomer(cName, add, maxAllowed, ccNumber));
@@ -262,7 +262,9 @@ class VideoRentalController{
     /*************************************
      * Option 5 - Rent Video
      */
-    
+    private void cRentVideo(){
+        this.cListAllCustomers("Select Customer");
+    }
     /*************************************
      * Option 6 - Return Video
      */
