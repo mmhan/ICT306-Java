@@ -103,4 +103,16 @@ public class CustomerModelTest {
             assertEquals(expResult[i][0], result[i][0]);
         }
     }
+
+    /**
+     * Test of find method, of class CustomerModel.
+     */
+    @Test
+    public void testFind() {
+        System.out.println("find");
+        Customer cust = new Customer("Milo", "101 bla ", 2);
+        instance.save(cust);
+        GenericCustomer result = instance.find(GenericCustomer.count);
+        assertEquals(cust, result);
+    }
 }

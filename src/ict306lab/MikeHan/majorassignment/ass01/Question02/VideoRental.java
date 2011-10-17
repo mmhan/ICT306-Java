@@ -7,6 +7,7 @@ package ict306lab.MikeHan.majorassignment.ass01.Question02;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CreditCustomer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.Customer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.CustomerModel;
+import ict306lab.MikeHan.majorassignment.ass01.Question02.Customer.GenericCustomer;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoModel;
 import ict306lab.MikeHan.majorassignment.ass01.Question02.Video.VideoTitle;
 
@@ -78,6 +79,7 @@ class VideoRentalController{
                     this.cAddNewTitle();
                     break;
                 case 2: //List all Customers
+                    this.cListAllCustomers();
                     break;
                 case 3: //Add new Customer
                     break;
@@ -122,7 +124,7 @@ class VideoRentalController{
         String[][] titles = catalog.findAllTitles();
         int choice = this.vListAllTitles(titles);
         while(choice != -1){
-            cListTitle(titles[choice][0]);
+            cTitleDetails(titles[choice][0]);
             choice = this.vListAllTitles(titles);
         }
     }
@@ -130,7 +132,7 @@ class VideoRentalController{
      * Controller to list the given title
      * @param id 
      */
-    private void cListTitle(String title){
+    private void cTitleDetails(String title){
         VideoTitle titleObj = catalog.findTitle(title);
         Cli.out(titleObj.toString());
         Cli.pause();
@@ -178,8 +180,47 @@ class VideoRentalController{
     /*************************************
      * Option 3 - List all Customers
      */
+    /***
+     * View to show all the customers.
+     * 
+     * @param   custs   2d array of all customers.
+     * @return  choice of who to view.
+     */
+    private int vListAllCustomers(String[][] custs){
+        String[] custsStr =  new String[custs.length];
+        for(int i = 0; i < custs.length ; i++){
+            custsStr[i] = custs[i][0];
+        }
+        int choice = Cli.choice(
+                "All existing customers are listed below. \n"
+                + "Please enter the number that belongs "
+                + "to the customer to see the details.\n"
+                + "============================================", 
+                custsStr, true);
+        return choice;
+    }
+    /***
+     * Controller to show the list of all customers.
+     * 
+     */
     private void cListAllCustomers(){
-        customers.getList();
+        String[][] cust = customers.getList();
+        int choice = this.vListAllCustomers(cust);
+        while(choice != -1){
+            cCustomerDetail(Integer.parseInt(cust[choice][1]));
+            choice = this.vListAllCustomers(cust);
+        }
+        
+    }
+    /***
+     * Controller to show the customer details.
+     * 
+     * @param id 
+     */
+    private void cCustomerDetail(int id){
+        GenericCustomer cust = customers.find(id);
+        Cli.out(cust.toString());
+        Cli.pause();
     }
     /*************************************
      * Option 4 - Add new Customers

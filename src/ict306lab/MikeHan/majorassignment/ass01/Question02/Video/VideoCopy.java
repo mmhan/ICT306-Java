@@ -75,4 +75,19 @@ public class VideoCopy {
         /** use private static function to generate **/
         return ++count;
     }
+    
+    /***
+     * Overrides and returns a string representation of VideoCopy
+     * 
+     * @return 
+     */
+    @Override
+    public String toString(){
+        String str = "";
+        str += this.title.name + " - " 
+                + this.title.cost + " - " 
+                + this.title.rentalDays + " - " 
+                + this.id;
+        return str;
+    }
 }

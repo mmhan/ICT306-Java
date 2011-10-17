@@ -91,6 +91,15 @@ public class CustomerModel {
         afterSave();
         return true;
     }
+    /**
+     * Find the customer and returns it.
+     * 
+     * @param id
+     * @return 
+     */
+    public GenericCustomer find(int id){
+        return customers[this.findKey(id)];
+    }
     
     /**
      * Find the key of the customer in the storage.
