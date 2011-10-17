@@ -90,7 +90,6 @@ public class Cli {
      */
     public static void pause(){
         Cli.out("Press enter to continue");
-        Cli.prompt();
         Cli.scan.nextLine();
     }
     

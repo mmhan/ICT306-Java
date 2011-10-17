@@ -91,6 +91,7 @@ class VideoRentalController{
                     this.cAddNewCustomer();
                     break;
                 case 4: //Rent Video
+                    this.cRentVideo();
                     break;
                 case 5: //Return Video
                     break;
@@ -204,7 +205,7 @@ class VideoRentalController{
     }
     /***
      * Controller to show the list of all customers.
-     * 
+     * @param Instruction to couple with the list
      */
     private void cListAllCustomers(String instruction){
         String[][] cust = customers.getList();
@@ -263,11 +264,59 @@ class VideoRentalController{
      * Option 5 - Rent Video
      */
     private void cRentVideo(){
-        this.cListAllCustomers("Select Customer");
+        String[][] allCustomers = customers.getList();
+        int cust; //just an initial val to start with
+        cust = this.vListAllCustomers(allCustomers, "Select Customer");
+        GenericCustomer customer = null;
+        while(cust != -1){
+            customer = customers.find(Integer.parseInt(allCustomers[cust][1]));
+            if(customer.getRented() >= customer.getMaxAllowed()){
+                Cli.out("This customer has reached/exceeded "
+                        + "the max number of rental allowed."
+                        + "\nPlease select another");
+                Cli.pause();
+                cust = this.vListAllCustomers(allCustomers, "Select Customer");
+            }else{
+                break;
+            }
+        }
+        if(cust == -1) return;
+        
+        String[][] allTitles = catalog.findAllTitles();
+        int selTitle;
+        selTitle = this.vListAllTitles(allTitles, "Select Title to rent");
+        while(selTitle != -1){
+            if(Integer.parseInt(allTitles[selTitle][1]) <= 0){
+                Cli.out("All copies of selected title is not available for rent."
+                        + "\nPlease select another.");
+                Cli.pause();
+                selTitle = this.vListAllTitles(allTitles, "Select Title to rent");
+            }else{
+                break;
+            }
+        }
+        if(selTitle == -1) return;
+        
+        //customer can rent, and title is available.
+        VideoCopy copy = catalog.getCopyFor(allTitles[selTitle][0], true);
+        boolean rented = customer.rent(copy);
+        if(rented){
+            Cli.out("The customer has rented the title.");
+            Cli.out(customer.getName() + " shall return the copy in "
+                    + copy.getTitle().rentalDays + " day(s)");
+            Cli.pause();
+        }else{
+            //impossible situation.
+            Cli.out("Hmm.. something went wrong. Please try again.");
+            Cli.pause();
+        }
     }
     /*************************************
      * Option 6 - Return Video
      */
+    private void cReturnVideo(){
+        
+    }
     /*************************************
      * Option 7 - Import Test Data
      */

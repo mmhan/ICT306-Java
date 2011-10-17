@@ -188,7 +188,7 @@ public class Customer extends GenericCustomer{
         str += "Name:\t\t\t" + this.name+ "\n";
         str += "Address:\t\t" + this.address+ "\n";
         str += "Max Allowed:\t\t" + this.getMaxAllowed()+ "\n";
-        str += "Rented Videos:\t\t\t" + this.rented + "\n";
+        str += "Rented Videos:\t\t" + this.rented + "\n";
         if(this.rented > 0){
             str += "\t===Rented Videos==========\n";
             for(int i = 0; i < this.rented; i++){
