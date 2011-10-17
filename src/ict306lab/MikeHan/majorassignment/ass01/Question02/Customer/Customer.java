@@ -126,6 +126,7 @@ public class Customer extends GenericCustomer{
      * @param   VideoCopy
      * @return  boolean for the status
      */
+    @Override
     public boolean rent(VideoCopy copy){
         
         //if more than max don't allow
@@ -136,7 +137,7 @@ public class Customer extends GenericCustomer{
         //if user is over limit, don't allow
         //we could easily use isOverMax flag to detect
         //this is just a fancier way to introduce try...catch
-        try{    
+        try{ 
             copies[rented] = copy;
             rented++;
             return true;
@@ -148,6 +149,7 @@ public class Customer extends GenericCustomer{
     /**
      * Will return video 
      */
+    @Override
     public boolean returnCopy(int id){
         int key = -1;
         for(int i = 0; i < rented; i++){
@@ -187,9 +189,11 @@ public class Customer extends GenericCustomer{
         str += "Address:\t\t" + this.address+ "\n";
         str += "Max Allowed:\t\t" + this.getMaxAllowed()+ "\n";
         str += "Rented Videos:\t\t\t" + this.rented + "\n";
-        for(int i = 0; i < this.rented; i++){
-            str += "===Rented Videos==========";
-            str += this.copies[i].toString();
+        if(this.rented > 0){
+            str += "\t===Rented Videos==========\n";
+            for(int i = 0; i < this.rented; i++){
+                str +="\t" + this.copies[i].toString() + "\n";
+            }
         }
         return str;
     }

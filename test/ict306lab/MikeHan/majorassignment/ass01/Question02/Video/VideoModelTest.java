@@ -166,4 +166,26 @@ public class VideoModelTest {
             assertEquals(expResult[i], result[i]);
         }
     }
+
+    /**
+     * Test of getCopyFor method, of class VideoModel.
+     */
+    @Test
+    public void testGetCopyFor() {
+        System.out.println("getCopyFor");
+        
+        boolean setRented = true;
+        VideoCopy result = model.getCopyFor("Cars 2", setRented);
+        assertEquals(setRented, result.isRented());
+    }
+
+    /**
+     * Test of findTitle method, of class VideoModel.
+     */
+    @Test
+    public void testFindTitle() {
+        System.out.println("findTitle");
+        VideoTitle result = model.findTitle("Cars 2");
+        assertEquals("Cars 2", result.name);
+    }
 }

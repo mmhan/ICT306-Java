@@ -56,6 +56,8 @@ public abstract class GenericCustomer{
     public abstract String getName();
     public abstract void setName(String name);
     public abstract int getRented();
+    public abstract boolean rent(VideoCopy copy);
+    public abstract boolean returnCopy(int id);
     @Override
     public abstract String toString();
 }

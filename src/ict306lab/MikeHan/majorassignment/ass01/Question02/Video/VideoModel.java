@@ -98,15 +98,33 @@ public class VideoModel {
     }
     /**
      * Will find the available copy count of a certain title
+     * 
+     * @param   name of the title.
      */
-    public int findAvailableCopyCount(String title){
+    public int findAvailableCopyCount(String titleName){
         int count = 0;
         for(int i = 0; i < this.copiesCount; i++){
-            if(title.equals(this.copies[i].getTitle().name) &&
+            if(titleName.equals(this.copies[i].getTitle().name) &&
                     !this.copies[i].isRented()) 
                 count++;
         }
         return count;
+    }
+    
+    /***
+     * Will find the first available copy for given title
+     * 
+     * @param   copy of the title.
+     */
+    public VideoCopy getCopyFor(String titleName, boolean setRented){
+        for(int i = 0; i < this.copiesCount; i++){
+            if(titleName.equals(this.copies[i].getTitle().name) &&
+                    !this.copies[i].isRented()){
+                if(setRented) this.copies[i].setAsRented();
+                return this.copies[i];
+            }
+        }        
+        return null;
     }
     /**
      * Will find the data required for listing all the titles
@@ -120,6 +138,12 @@ public class VideoModel {
         }
         return titlesStr;
     }
+    /**
+     * find a video title and return it.
+     * 
+     * @param   title
+     * @return  
+     */
     public VideoTitle findTitle(String title){
         return titles[this.findTitleKey(title)];
     }
