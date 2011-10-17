@@ -100,6 +100,5 @@ public abstract class GenericCustomer{
      * @return
      */
     public abstract boolean returnCopy(int id);
-    @Override
     public abstract String toString();
 }

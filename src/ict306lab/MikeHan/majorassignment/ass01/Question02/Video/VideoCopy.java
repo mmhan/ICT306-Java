@@ -91,7 +91,7 @@ public class VideoCopy {
      * 
      * @return 
      */
-    @Override
+    
     public String toString(){
         String str = "";
         str += this.title.name + " - " 

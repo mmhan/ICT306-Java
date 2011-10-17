@@ -41,7 +41,6 @@ public class Customer extends GenericCustomer{
      * 
      * @return address of customer
      */
-    @Override
     public String getAddress() {
         return address;
     }
@@ -50,7 +49,6 @@ public class Customer extends GenericCustomer{
      * 
      * @param address 
      */
-    @Override
     public void setAddress(String address) {
         this.address = address;
     }
@@ -59,7 +57,6 @@ public class Customer extends GenericCustomer{
      * 
      * @return 
      */
-    @Override
     public int getId() {
         return id;
     }
@@ -77,7 +74,7 @@ public class Customer extends GenericCustomer{
      * 
      * @return maxAllowed 
      */
-    @Override
+    
     public int getMaxAllowed() {
         return maxAllowed;
     }
@@ -86,7 +83,7 @@ public class Customer extends GenericCustomer{
      * 
      * @param maxAllowed 
      */
-    @Override
+    
     public void setMaxAllowed(int maxAllowed) {
         if(this.rented > maxAllowed){
             //if Customer has rented more copies at the moment remember to
@@ -104,7 +101,7 @@ public class Customer extends GenericCustomer{
      * 
      * @return name
      */
-    @Override
+    
     public String getName() {
         return name;
     }
@@ -113,7 +110,7 @@ public class Customer extends GenericCustomer{
      * 
      * @param name 
      */
-    @Override
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -122,7 +119,7 @@ public class Customer extends GenericCustomer{
      * 
      * @return  rented.
      */
-    @Override
+    
     public int getRented(){
         return this.rented;
     }
@@ -133,7 +130,7 @@ public class Customer extends GenericCustomer{
      * @param copy 
      * @return  boolean for the status
      */
-    @Override
+    
     public boolean rent(VideoCopy copy){
         
         //if more than max don't allow
@@ -158,7 +155,7 @@ public class Customer extends GenericCustomer{
      * @param id
      * @return  
      */
-    @Override
+    
     public boolean returnCopy(int id){
         int key = -1;
         for(int i = 0; i < rented; i++){
@@ -187,7 +184,7 @@ public class Customer extends GenericCustomer{
      * 
      * @return string
      */
-    @Override
+    
     public String toString(){
         String str = "";
         str += "==================================\n";

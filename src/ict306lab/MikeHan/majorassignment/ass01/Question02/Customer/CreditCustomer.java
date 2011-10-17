@@ -88,7 +88,6 @@ public class CreditCustomer extends Customer{
         this.setBalance(0.0);
     }
     
-    @Override
     public boolean returnCopy(int id){
         //the following code is more or less the same with the parent's code
         //it has only been copied anti-patternly due to:
@@ -124,7 +123,6 @@ public class CreditCustomer extends Customer{
     /**
      * To String for this object
      */
-    @Override
     public String toString(){
         String[] array = new String[] {
             Integer.toString(this.id),
