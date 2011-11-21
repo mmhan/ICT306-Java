@@ -131,6 +131,8 @@ public class BookModel implements Serializable{
         int i = ids.indexOf(id);
         if(i == -1) return false;
         try{
+            Book book = books.get(i);
+            book.setCategory(null);
             books.remove(i);
             ids.remove(new Integer(id));
             return true;
