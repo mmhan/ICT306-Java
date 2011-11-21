@@ -1,0 +1,67 @@
+# Catalog CLI & GUI application #
+================================
+
+Author: Myat Min Han (Mike)
+Date : 22nd Nov 2011
+
+## Requirements/Specification ##
+--------------------------------
+
+This program is simple a command line interface (CLI) program and GUI program that is designed and created to assist with management of a personal library to allow keeping track of books and their category. 
+
+## Assumptions ##
+------------
+
+* All the data are stored in memory as of this moment and saved as Serialized Library file (.lib). Data portability is not implemented.
+* Currenlty no memory optimization has been done, and no stress test has been performed to ensure the program's speedy performance on the scale of hundred books and hundreds of catalogs.
+
+## User Guide ##
+------------
+
+After extracting and importing the project, user just need to run the file CatalogApp.java or CatalogCLI.java to start the program in netbeans.
+
+Once you run the program the program is instructive enough to be able understand.
+
+## Structure/Design ##
+-------------
+I have used the Model View Controller pattern to design the program. 
+
+I have also continued to use test-driven approach by writing JUnit test cases. As somebody who's used to the agile methodology, I am quite keen to hit the ground running and start the coding process as soon as possible. Thus by choosing the test-driven approach I can start with a rough design, improve it further and further along the development to create a complete program. Also by referencing the previous project's reusable ClI helper, I have managed to cut down development time by a couple of hours.
+
+The design of the objects in run-time shall look like this.
+
+ * `CatalogApp`/`CatalogCLI`
+ * `BooksController`
+	* `BookModel`
+            * `Book`
+                * `Category`
+            * `Category`
+                * `Book`
+ * `Cli`
+ * `FileHelper` (this class had been taken out in later part)
+ 
+The main reason for choosing MVC is that I could separate the business logic, the view logic and the transaction logics instead of putting it all together in one file which makes it harder to control/maintain and make sense.
+
+By separating the business logic with transaction logic and view logic, I have been able to reuse almost all the Model and Controller classes for both GUI and CLI applications.
+
+Using MVC structure, I have created Model classes for `Books`, `BooksController` and view functions in `CatalogApp`/`CatalogCLI`.
+ 
+Using the model classes in the `BooksController`, I am able to control the two seperate data sources of `Book`s and `Category`s.  By serializing the `BookModel` project I was able to achieve saving/loading of the library.
+
+At the end of the day, I have created a unit-tested code (with more than 90% coverage) that can be developed further and easily maintainable.
+
+## Limitations ##
+---------------
+Due to the time constraints, I have not implemented the field for `notesFile` of `Book` in the GUI application.
+
+And also, as you may see, many of the code usages are not as optimized as it should be and sometimes anti-pattern, especially on the GUI part due to my unfamiliarity with Java's awt and its boilerplate bloated language.
+
+## Listings ##
+---------------
+
+
+## Testing ##
+---------------
+As I mentioned earlier, using the test driven development approach, I start out by writing a test code for a method that I am going to implement. I then continue to create the function that satisfy the requirements of the test. 
+
+Using this approach all the codes are fully tested using JUnit and the test codes are also attached in the same folder as the source codes.
