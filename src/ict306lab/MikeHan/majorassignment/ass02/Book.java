@@ -105,7 +105,10 @@ public class Book implements Serializable{
      * @param imageFile
      */
     public void setImageFile(String imageFile) throws IOException{
-        this.imageFile = imageFile;        
+        if(FileHelper.exists(imageFile))
+            this.imageFile = imageFile;
+        else
+            throw new IOException();
     }
 
     /**
@@ -114,7 +117,10 @@ public class Book implements Serializable{
      * @param notesFile
      */
     public void setNotesFile(String notesFile) throws IOException{
-        this.notesFile = notesFile;
+        if(FileHelper.exists(notesFile))
+            this.notesFile = notesFile;
+        else
+            throw new IOException();
     }
     
     /**
