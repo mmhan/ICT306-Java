@@ -170,8 +170,12 @@ class CatalogView{
         int choice = printAllBooks(
                 "Here's a list of all books under " + cat.name ,
                 choices);
+        
         while(choice != -1){
             this.bookDetails(books[choice]);
+            choice = printAllBooks(
+                "Here's a list of all books under " + cat.name ,
+                booksToString(cat.getBooks()));
         }
     }
     /**
@@ -190,7 +194,7 @@ class CatalogView{
      * 
      * @param b 
      */
-    private void bookDetails(Book b){
+    private int bookDetails(Book b){
         int choice = printBookDetails(b);
         while(choice != -1){
             switch(choice){
@@ -212,6 +216,7 @@ class CatalogView{
                 choice = printBookDetails(b);
             }
         }
+        return choice;
     }
     /**
      * Will print details of a book.
@@ -294,7 +299,7 @@ class CatalogView{
             boolean tryAgain = true;
             while(tryAgain){
                 try{
-                    String file = Cli.str("Please input filename for this book.");
+                    String file = Cli.str("Please input filename of image for this book.");
                     b.setImageFile(file);
                 }catch (IOException e){
                     tryAgain = Cli.confirm("Invalid filename, do you want to try again?");
@@ -307,7 +312,7 @@ class CatalogView{
         }
         
         boolean editNotes = Cli.confirm(
-                "Do you wish to add image to this book?"
+                "Do you wish to add notes to this book?"
                 + (
                     b.getNotesFile().length() == 0 ? ""
                     : "Current Image : " + b.getNotesFile()
@@ -316,7 +321,7 @@ class CatalogView{
             boolean tryAgain = true;
             while(tryAgain){
                 try{
-                    String file = Cli.str("Please input filename for this book.");
+                    String file = Cli.str("Please input filename of notes for this book.");
                     b.setNotesFile(file);
                 }catch (IOException e){
                     tryAgain = Cli.confirm("Invalid filename, do you want to try again?");
