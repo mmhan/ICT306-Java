@@ -17,6 +17,12 @@ import javax.imageio.ImageIO;
  * @author mmhan
  */
 public class FileHelper {
+    
+    public static boolean exists(String filename){
+        File f = new File(filename);
+        return f.exists();
+    }
+    
     public static boolean isReadable(String filename) throws IOException{
         FileReader fr = new FileReader(filename);
         return true;
