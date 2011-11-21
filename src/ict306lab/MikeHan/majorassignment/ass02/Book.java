@@ -40,8 +40,8 @@ public class Book {
     /**
      * Category that the book belongs to.
      */
-    public Category category;
-    
+    private Category category;
+
     /**
      * This is the function to generate the id.
      * 
@@ -70,7 +70,7 @@ public class Book {
         this.isbn = isbn;
         this.author = author;
     }
-
+  
     /**
      * Return the id of the book
      * 
@@ -116,6 +116,26 @@ public class Book {
         this.notesFile = notesFile;
     }
     
+    /**
+     * To get the category of the book.
+     */
+    public Category getCategory() {
+        return category;
+    }
+
+    /**
+     * To set the category of the book.
+     * 
+     * @param category 
+     */
+    public void setCategory(Category category) {
+        if(this.category != null){
+            this.category.remove(this);
+        }
+        this.category = category;
+        category.add(this);
+    }   
+    
     @Override
     public String toString(){
         String str = "";
@@ -126,6 +146,12 @@ public class Book {
         str += "Author: " + this.author; str += "\r";
         str += "Image : " + this.imageFile; str += "\r";
         str += "Notes : " + this.notesFile; str += "\r";
+        if(this.category != null){
+            str += "Cat   : " + this.category.name; 
+        }else{
+            str += "Cat   : Uncategorized";
+        }
+        str += "\r";
         return str;
     }
 }

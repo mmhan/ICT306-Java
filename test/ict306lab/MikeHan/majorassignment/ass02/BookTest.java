@@ -147,4 +147,32 @@ public class BookTest {
         String result = instance.toString();
         assertNotNull(result);
     }
+
+    /**
+     * Test of getCategory method, of class Book.
+     */
+    @Test
+    public void testGetCategory() {
+        System.out.println("getCategory");
+        Book instance = new Book("Bla", "Bla", "Bla");
+        Category expResult = null;
+        Category result = instance.getCategory();
+        assertEquals(expResult, result);
+        
+        Category cat = new Category("Bla");
+        instance.setCategory(cat);
+        assertEquals(cat, instance.getCategory());
+    }
+
+    /**
+     * Test of setCategory method, of class Book.
+     */
+    @Test
+    public void testSetCategory() {
+        System.out.println("setCategory");
+        Book book = new Book();
+        Category cat = new Category("Bla");
+        book.setCategory(cat);
+        assertEquals(cat, book.getCategory());
+    }
 }
