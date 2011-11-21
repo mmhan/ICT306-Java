@@ -54,6 +54,7 @@ class CatalogView{
                     try{
                         boolean loadLib = con.loadLib(str);
                         if(loadLib){
+                            Cli.out("Your library is loaded.");
                             choice = 42;
                             break;
                         }else{
@@ -70,19 +71,16 @@ class CatalogView{
                         choice = this.printLib();
                         break;
                     }
-                    try{
-                        boolean newLib = con.newLib(strNew);
-                        if(newLib){
-                            choice = 42;
-                            break;
-                        }else{
-                            Cli.out("Couldn't create library please try again.");
-                            break;
-                        }
-                    }catch (IOException e){
+                    
+                    boolean newLib = con.newLib(strNew);
+                    if(newLib){
+                        choice = 42;
+                        break;
+                    }else{
                         Cli.out("Couldn't create library please try again.");
                         break;
                     }
+                    
             }
         }
         return choice == 42;
@@ -99,27 +97,94 @@ class CatalogView{
         int choice = this.printMainMenu();
         while(choice != -1){
             switch(choice){
-                case 0: //List all cats
+                case 0: //List cats
                     this.allCats();
                     break;
-                case 1: //Add New cat
+                case 1: //Edit cat
+                    this.catEdit();
                     break;
-                case 2: //List all books
-                    
+                case 2: //new cat
+                    this.catInput(null);
                     break;
-                case 3: //Add new book
-                    
+                case 3: //List all books
+                    this.allBooks();
+                    break;
+                case 4: //Add new book
+                    this.bookInput(null);
                     break;
                 default:
                     continue;
             }
-            if(choice != -1) choice = this.printMainMenu();
+            if(choice != -1){
+                choice = this.printMainMenu();
+            }else{
+                if(!Cli.confirm("Are you sure you want to exit?"))
+                    choice = this.printMainMenu();
+            }
+        }
+        
+        String[] libChoices = new String[]{
+                    "Overwrite current library at " + con.getLib(),
+                    "Save as new file"
+                };
+        int libChoice = Cli.choice("Do you wish to save your library?" 
+                + "\nPlease select -1 to exit without saving.", 
+                libChoices, false);
+        while(libChoice != -1){
+            switch(libChoice){
+                case 0: //overwrite
+                    boolean libSave = false;
+                    
+                    while(!libSave){
+                        libSave = con.saveLib();
+                        if(!libSave){
+                            Cli.out("Couldn't save the library.");
+                            Cli.pause();
+                            libChoice = Cli.choice("Do you wish to save your library?" 
+                                + "\nPlease select -1 to exit without saving.", 
+                                libChoices, false);
+                            break;
+                        }else{
+                            Cli.out("Library Saved.");
+                            libChoice = -1; //let the program exit if save is successful
+                            break;
+                        }
+                    }
+                    break;
+                case 1: //new file
+                    boolean saveLib = false;
+                    try{
+                        while(!saveLib){
+                            con.filename = Cli.str("Enter new library file name. ");
+                            saveLib = con.saveLib();
+
+                            if(!saveLib){
+                                Cli.out("Counldn't set given file as a library.");
+                                saveLib = !Cli.confirm("Do you want to try again?");
+                            }else{
+                                Cli.out("Library Saved.");
+                                libChoice = -1; //let the program exit
+                            }
+                        }
+                    }catch (NullPointerException e){
+                        libChoice =  Cli.choice("Do you wish to save your library?", 
+                            libChoices, true);
+                        break;
+                    }
+                    break;
+            }
         }
     }
+    
+    /**
+     * Will print the main menu
+     * @return 
+     */
     private int printMainMenu(){
         String[] choices = new String[]{
             "List all categories",
-            "New category",
+            "Edit category",
+            "New Category",
             "List all books",
             "New book"
         };
@@ -159,6 +224,7 @@ class CatalogView{
                 pre
                 , q, true);
     }
+    
     /**
      * Will show details of a category
      * 
@@ -167,28 +233,41 @@ class CatalogView{
     private void catDetails(Category cat){
         Book[] books = cat.getBooks();
         String[] choices = booksToString(books);
-        int choice = printAllBooks(
+        int choice = printGivenBooks(
                 "Here's a list of all books under " + cat.name ,
                 choices);
         
         while(choice != -1){
             this.bookDetails(books[choice]);
-            choice = printAllBooks(
+            books = cat.getBooks();
+            choice = printGivenBooks(
                 "Here's a list of all books under " + cat.name ,
-                booksToString(cat.getBooks()));
+                booksToString(books));
         }
     }
+    
     /**
-     * Will print a list of books and return the choice
-     * @param q
+     * Will print details of a book.
+     * 
+     * @param b
      * @return 
      */
-    private int printAllBooks(String pre, String[] q){
+    private int printBookDetails(Book b){
+        Cli.out(b.toString());
         return Cli.choice(
-                pre
-                + "\nSelect a number to view details of a book"
-                , q, true);
+                "Please select an action", 
+                new String[]{
+                    "Edit",
+                    "Delete"
+                }, 
+                true);
     }
+    
+    
+    /*========================================
+     * Choice #2 - Edit categories.
+     *========================================*/
+    
     /**
      * Will handle book details section.
      * 
@@ -218,23 +297,89 @@ class CatalogView{
         }
         return choice;
     }
+    
     /**
-     * Will print details of a book.
-     * 
-     * @param b
-     * @return 
+     * Will handle editing category.
      */
-    private int printBookDetails(Book b){
-        Cli.out(b.toString());
-        return Cli.choice(
-                "Please select an action", 
-                new String[]{
-                    "Edit",
-                    "Delete"
-                }, 
-                true);
+    private void catEdit(){
+        Category[] cats = con.getAllCategory();
+        int choice = Cli.choice("Please choose a category to edit.",
+                this.catsToString(cats)
+                , true);
+        while(choice != -1){
+            this.catInput(cats[choice]);
+            cats = con.getAllCategory();
+            choice = Cli.choice("Please choose a category to edit.",
+                this.catsToString(cats)
+                , true);
+        }
     }
     
+    /**
+     * it's a form to edit category.
+     * 
+     * @param c 
+     */
+    private void catInput(Category c){
+        boolean isNew = c == null;
+        String name = null;
+        try{
+            name = Cli.str(
+                    "Enter the name of the category."
+                    + (isNew ? "" : "\nCurrent Name : " + c.name));
+            name.trim();
+        }catch (NullPointerException e){
+            return;
+        }
+        if(isNew){
+            con.newCategory(name);
+        }else{
+            c.name = name;
+        }
+    }
+    
+    /*========================================
+     * Choice #4 - All books
+     *========================================*/
+    
+    private void allBooks(){
+        Book[] books = con.getAllBooks();
+        String[] choices = booksToString(books);
+        int choice = printGivenBooks(
+                "Here's a list of all books in the library",
+                choices);
+        
+        while(choice != -1){
+            this.bookDetails(books[choice]);
+            books = con.getAllBooks();
+            choice = printGivenBooks(
+                "Here's a list of all books in the library",
+                booksToString(books));
+        }
+    }
+    
+    
+    /*========================================
+     * Common methods
+     *========================================*/
+    
+    /**
+     * Will print a list of books and return the choice
+     * @param q
+     * @return 
+     */
+    private int printGivenBooks(String pre, String[] q){
+        return Cli.choice(
+                pre
+                + "\nSelect a number to view details of a book"
+                , q, true);
+    }
+    
+    /**
+     * To create/edit a book
+     * 
+     * @param b 
+     */
     private void bookInput(Book b){
         String title, isbn, author, cat = null;
         Category[] cats = con.getAllCategory();
@@ -273,7 +418,7 @@ class CatalogView{
             return;
         }
         
-        //edit now.
+        //edit/create now.
         if(isNew){
             if(cat == null){
                 b = con.newBook(title, isbn, author);

@@ -32,15 +32,11 @@ public class BooksControllerTest {
     
     @Before
     public void setUp() {
-        try{
-            con.newLib("p:/test/testcaseLib.lib");
-            con.newBook("Tin Tin in Moscow", "1234", "Herge", "Comics");
-            con.newBook("Tin Tin in Congo", "2345", "Herge", "Comics");
-            con.newBook("Tin Tin in America", "3456", "Herge", "Comics");
-            con.newBook("Assignment 02", "", "Murdoch");
-        }catch (IOException e){
-            fail("newLib should work.");
-        }
+        con.newLib("p:\\test\\testcaseLib.lib");
+        con.newBook("Tin Tin in Moscow", "1234", "Herge", "Comics");
+        con.newBook("Tin Tin in Congo", "2345", "Herge", "Comics");
+        con.newBook("Tin Tin in America", "3456", "Herge", "Comics");
+        con.newBook("Assignment 02", "", "Murdoch");
     }
     
     @After
@@ -54,22 +50,17 @@ public class BooksControllerTest {
     @Test
     public void testNewLib(){
         System.out.println("newLib");
-        String filename = "x:/bla.lib";
+        String filename = "x:\\bla.lib";
         BooksController instance = new BooksController();
         boolean expResult = false;
         boolean result = false;
-        try{
-            result = instance.newLib(filename);
-        }catch(IOException e){
-            assertEquals(expResult, result);
-        }
+       
+        result = instance.newLib(filename);
+        assertTrue(result);
         
-        try{
-            result = instance.newLib("p:/test/test.lib");
-            assertTrue(result);
-        }catch(IOException e){
-            fail("It shouldn't throw exception.");
-        }
+        result = instance.newLib("p:\\test\\test.lib");
+        assertTrue(result);
+        
     }
 
     /**
@@ -78,7 +69,7 @@ public class BooksControllerTest {
     @Test
     public void testLoadLib(){
         System.out.println("loadLib");
-        String filename = "x:/bla.lib";
+        String filename = "x:\\bla.lib";
         BooksController instance = new BooksController();
         boolean expResult = false;
         boolean result = false;
@@ -88,16 +79,12 @@ public class BooksControllerTest {
             assertEquals(expResult, result);
         }
         
-        filename = "p:/test/testLoadLib.lib";
-        try{
-            con.newLib(filename);
-            con.saveLib();
-        }catch(IOException e){
-            fail("saveLib failed me, fix it first.");
-        }
+        filename = "p:\\test\\testcaseLib.lib";
+        con.saveLib();
+
         try{
             instance = new BooksController();
-            result = instance.loadLib(filename);   
+            result = instance.loadLib(filename);
         }catch(IOException e){
             fail("This shouldn't throw an exception");
         }
@@ -117,19 +104,11 @@ public class BooksControllerTest {
         assertEquals(expResult, result);
         
         result = false;
-        try{
-            instance.newLib("x:/bla.lib");
+            instance.newLib("x:\\bla.lib");
             result = instance.saveLib();
-        }catch(IOException e){
-            assertEquals(expResult, result);
-        }        
-        
-        try{
-            instance.newLib("p:/test/test.lib");
+
+            instance.newLib("p:\\test\\test.lib");
             instance.saveLib();
-        }catch(IOException e){
-            fail("This shouldn't throw an exception.");
-        }
     }
 
     /**
@@ -258,5 +237,17 @@ public class BooksControllerTest {
         boolean result = con.deleteBook(b.getId());
         assertEquals(expResult, result);
         assertEquals(expCount, uncat.getBooks().length);
+    }
+
+    /**
+     * Test of getLib method, of class BooksController.
+     */
+    @Test
+    public void testGetLib() {
+        System.out.println("getLib");
+        BooksController instance = new BooksController();
+        String expResult = null;
+        String result = instance.getLib();
+        assertEquals(expResult, result);
     }
 }

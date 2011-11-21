@@ -27,27 +27,30 @@ public class BooksController {
     /**
      * Ref to filename of lib.
      */
-    private String filename;
+    protected String filename;
     
     public BooksController(){
         Book = new BookModel();
     }
     
+    public String getLib(){
+        return filename;
+    }
+    
     /**
      * Creates new library at given filename
+     * It can be a new file.
      * 
      * @param   filename
      * @return  
      * @throws IOException 
      */
-    public boolean newLib(String filename) throws IOException{
-        if(FileHelper.isWritable(filename)){
-            this.filename = filename;
-            return true;
-        }else{
-            return false;
-        }
+    public boolean newLib(String filename){
+        this.Book = new BookModel();
+        this.filename = filename;
+        return true;
     }
+    
     /**
      * Load a library from given filename.
      * 
@@ -56,6 +59,11 @@ public class BooksController {
      * @throws IOException 
      */
     public boolean loadLib(String filename) throws IOException{
+        if(!FileHelper.exists(filename)){
+            return false;
+        }
+        
+        this.filename = filename;
         ObjectInputStream input = 
                 new ObjectInputStream(new FileInputStream(filename));
         try {
@@ -69,6 +77,7 @@ public class BooksController {
             return false;
         }
     }
+    
     /**
      * Save current version of library 
      * 
