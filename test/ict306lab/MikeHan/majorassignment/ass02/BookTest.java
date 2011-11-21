@@ -60,6 +60,10 @@ public class BookTest {
         int expResult = Book.counter;
         int result = instance.getId();
         assertEquals(expResult, result);
+        
+        Book nextBook = new Book("Bla", "Bla", "Bla");
+        expResult++;
+        assertEquals(expResult, nextBook.getId());
     }
 
     /**

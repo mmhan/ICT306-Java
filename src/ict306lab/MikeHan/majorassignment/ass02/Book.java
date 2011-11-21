@@ -37,6 +37,10 @@ public class Book {
      */
     private String imageFile = "";
 
+    /**
+     * Category that the book belongs to.
+     */
+    public Category category;
     
     /**
      * This is the function to generate the id.
@@ -61,6 +65,7 @@ public class Book {
      * @param author 
      */
     public Book(String title, String isbn, String author){
+        this.id = Book.getNextId();
         this.title = title;
         this.isbn = isbn;
         this.author = author;
@@ -115,12 +120,12 @@ public class Book {
     public String toString(){
         String str = "";
         str += "Book";
-        str += "==========";
-        str += "Title : " + this.title;
-        str += "ISBN  : " + this.isbn;
-        str += "Author: " + this.author;
-        str += "Image : " + this.imageFile;
-        str += "Notes : " + this.notesFile;
+        str += "=========="; str += "\r";
+        str += "Title : " + this.title; str += "\r";
+        str += "ISBN  : " + this.isbn; str += "\r";
+        str += "Author: " + this.author; str += "\r";
+        str += "Image : " + this.imageFile; str += "\r";
+        str += "Notes : " + this.notesFile; str += "\r";
         return str;
     }
 }
