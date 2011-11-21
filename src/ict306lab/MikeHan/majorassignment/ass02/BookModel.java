@@ -18,9 +18,10 @@ import java.util.List;
 public class BookModel implements Serializable{
     
     /**
-     * empty array
+     * empty arrays
      */
     private static final Book[] EMPTY_BOOKS = new Book[0];
+    private static final Category[] EMPTY_CATS = new Category[0];
     
     /**
      * Keep count of all the books
@@ -39,7 +40,7 @@ public class BookModel implements Serializable{
     /**
      * Storage of categories
      */
-    protected Category[] cats;
+    protected ArrayList<Category> cats;
     
     
     /**
@@ -48,6 +49,7 @@ public class BookModel implements Serializable{
     public BookModel(){
         books = new ArrayList<Book>();
         ids = new ArrayList<Integer>();
+        cats = new ArrayList<Category>();
     }
 	
 	/**
@@ -58,6 +60,7 @@ public class BookModel implements Serializable{
     public BookModel(int size){
         books = new ArrayList<Book>(size);
         ids = new ArrayList<Integer>(size);
+        cats = new ArrayList<Category>(size);
     }
     
     /**
@@ -77,6 +80,7 @@ public class BookModel implements Serializable{
     public boolean save(Book book){
         if(books.add(book)){
             ids.add(new Integer(book.getId()));
+            this.addCat(book.getCategory());
             return true;
         }else{
             return false;
@@ -94,6 +98,7 @@ public class BookModel implements Serializable{
         if(i == -1) return false;
         Book bookInStorage = books.get(i);
         bookInStorage = book;
+        this.addCat(book.getCategory());
         return true;
     }
     /**
@@ -131,6 +136,46 @@ public class BookModel implements Serializable{
             return true;
         }catch(IndexOutOfBoundsException e){
             return false;
+        }
+    }
+    
+    /**
+     * This function will add category to storage if it's required.
+     * 
+     * @param c
+     * @return 
+     */
+    private boolean addCat(Category c){
+        int catIndex = cats.indexOf(c);
+        if(catIndex == -1){
+            return cats.add(c);
+        }
+        return true;
+    }
+    /**
+     * This function will return an array of all categories
+     * @return 
+     */
+    public Category[] getAllCat(){
+        return cats.toArray(BookModel.EMPTY_CATS);
+    }
+    /**
+     * Removes a category from storage and returns it.
+     * 
+     * @param   c   category to be removed.
+     * @return 
+     */
+    public Category deleteCat(Category c){
+        int i = cats.indexOf(c);
+        if(i != -1){
+            Category removedCat = cats.remove(i);
+            Book[] cbooks = removedCat.getBooks();
+            for(int j = 0; j < cbooks.length; j++){
+                cbooks[j].setCategory(null);
+            }
+            return removedCat;
+        }else{
+            return null;
         }
     }
 }

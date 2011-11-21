@@ -32,9 +32,18 @@ public class BookModelTest {
     
     @Before
     public void setUp() {
-        model.save(new Book("Tin Tin in Moscow", "1234", "Herge"));
-        model.save(new Book("Tin Tin in Congo", "1234", "Herge"));
-        model.save(new Book("Tin Tin in America", "1234", "Herge"));
+        Category c = new Category("Comics");
+        Book b1 = new Book("Tin Tin in Moscow", "1234", "Herge");
+        b1.setCategory(c);
+        model.save(b1);
+        
+        Book b2 = new Book("Tin Tin in Congo", "1234", "Herge");
+        b2.setCategory(c);
+        model.save(b2);
+        
+        Book b3 = new Book("Tin Tin in America", "1234", "Herge");
+        b3.setCategory(c);
+        model.save(b3);
     }
     
     @After
@@ -123,5 +132,28 @@ public class BookModelTest {
                 fail("I shouldn't have found this in storage, after deleting.");
         }
         assertEquals(true, result);
+    }
+
+    /**
+     * Test of getAllCat method, of class BookModel.
+     */
+    @Test
+    public void testGetAllCat() {
+        System.out.println("getAllCat");
+        int expResult = 1;
+        int result = model.getAllCat().length;
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of deleteCat method, of class BookModel.
+     */
+    @Test
+    public void testDeleteCat() {
+        System.out.println("deleteCat");
+        Category[] cats = model.getAllCat();
+        Category result = model.deleteCat(cats[0]);
+        assertEquals(cats[0], result);
+        assertTrue(result.books.isEmpty());
     }
 }
