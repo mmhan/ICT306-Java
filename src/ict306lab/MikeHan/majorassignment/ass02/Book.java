@@ -145,6 +145,12 @@ public class Book implements Serializable{
     
     @Override
     public String toString(){
+        return this.title;
+    }
+    
+    public String toString(boolean pretty){
+        if(!pretty) return this.toString();
+        
         String str = "";
         str += "Book \n";
         str += "=========="; str += "\n";

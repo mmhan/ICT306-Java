@@ -253,7 +253,7 @@ class CatalogView{
      * @return 
      */
     private int printBookDetails(Book b){
-        Cli.out(b.toString());
+        Cli.out(b.toString(true));
         return Cli.choice(
                 "Please select an action", 
                 new String[]{

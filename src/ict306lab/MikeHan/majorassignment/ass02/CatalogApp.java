@@ -11,6 +11,8 @@ import javax.swing.filechooser.FileFilter;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class CatalogApp extends JFrame {
 
@@ -18,7 +20,9 @@ public class CatalogApp extends JFrame {
     
     BooksController con = new BooksController();
     
-    CategoryListPane catList;
+    CategoriesListPane catList;
+    BooksListPane bookList;
+    DetailsPane details;
     
     /**
      * Filter for .lib files.
@@ -35,17 +39,223 @@ public class CatalogApp extends JFrame {
         }
     }
         
-//    class MyButtonListener implements ActionListener {
-//        // inner class - implements the interface ActionListener
-//        public void actionPerformed(ActionEvent e){
-//            infoLabel.setText("that's "+(++counter));
-//        }// end of method actionedPerformed
-//    } // end of class MyButtonListener
+    /**
+     * To Handle to list selections
+     */
+    class SharedListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            JList list = (JList) e.getSource();
+            
+            if(list.equals(catList.list)){
+                catList.onListItemSelected();
+            }else{
+                bookList.onListItemSelected();
+            }
+        }
+    }
     
-    class CategoryListPane extends JPanel{
-        public CategoryListPane(){
-            JLabel label = new JLabel("Categories", JLabel.CENTER);
-            this.add(label, BorderLayout.NORTH);
+    /**
+     * For both category and books panels
+     */
+    abstract class ListPane extends JPanel{
+        
+        JLabel title;
+        JList list;
+        DefaultListModel model;
+        
+        public ListPane(String name){
+            title = new JLabel(name, JLabel.LEFT);
+            this.genList();
+            this.makeList();
+        }
+        
+        public void makeList(){
+            //make list
+            list = new JList(model);
+            list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            list.setLayoutOrientation(JList.VERTICAL);
+            list.setVisibleRowCount(-1);
+            JScrollPane listScroller = new JScrollPane(list);
+            listScroller.setMinimumSize(new Dimension(200, 50));
+            listScroller.setPreferredSize(new Dimension(200, 400));
+            listScroller.setAlignmentX(LEFT_ALIGNMENT);
+            
+            list    
+                .addListSelectionListener(new SharedListSelectionHandler());
+            
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            
+            this.add(title);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(listScroller);
+        }
+        
+        public void updateUI(){
+            this.genList();
+            super.updateUI();
+        }
+        
+        protected abstract void genList();
+        
+        
+        public abstract void onListItemSelected();
+    }
+    
+    class CategoriesListPane extends ListPane{
+        
+        Category selected;
+        
+        public CategoriesListPane(){
+            super("Categories");
+        }
+        
+        @Override
+        public void makeList(){
+            super.makeList();
+            JLabel lbl = new JLabel("Add New", JLabel.LEFT);
+            JTextField txt = new JTextField(64);
+            JButton btn = new JButton("Add");
+            
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(lbl);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(txt);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(btn);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+        }
+         
+        @Override
+        public void genList() {
+            if(model == null) model = new DefaultListModel();
+            else model.clear();
+            
+            Category[] cats = con.getAllCategory();
+            for(int i = 0; i < cats.length; i++){
+                model.addElement(cats[i]);
+            }
+        }
+        
+        @Override
+        public void onListItemSelected() {
+            this.selected = (Category) list.getSelectedValue();
+            bookList.updateUI();
+        }
+    }
+    
+    class BooksListPane extends ListPane{
+        
+        Book selected;
+        
+        public BooksListPane(){
+            super("Books");
+        }
+        
+        public void genList(){
+            try{
+                model.clear();
+
+                
+            }catch (NullPointerException e){
+                model = new DefaultListModel();
+            }finally{
+                Book[] books;
+                try{
+                    if(catList.selected == null){
+                        this.title.setText("Books");
+                        books = con.getAllBooks();
+                    }else{
+                        this.title.setText("Books : " + catList.selected.name);
+                        books = catList.selected.getBooks();
+                    }
+                    for(int i = 0; i < books.length; i++){
+                        model.addElement(books[i]);
+                    }
+                }catch (NullPointerException e){
+                    
+                }
+            }
+        }
+        
+        @Override
+        public void onListItemSelected() {
+            this.selected = (Book) list.getSelectedValue();
+            details.update(this.selected);
+            details.updateUI();
+        }
+    }
+    
+    class ListsPane extends JPanel{
+        public ListsPane(CategoriesListPane catList, BooksListPane bookList){
+            this.setLayout(new GridLayout(1, 2));
+            this.add(catList);
+            this.add(bookList);
+        }
+    }
+    
+    class DetailsPane extends JPanel{
+        
+        Book data;
+        
+        JTextField title, isbn, author;
+        JLabel titleLbl, isbnLbl, authorLbl;
+        
+        public DetailsPane(){
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            
+            Dimension dim = new Dimension(150, 0);
+            titleLbl = new JLabel("Title : ");            
+            titleLbl.setMinimumSize(dim);
+            isbnLbl = new JLabel("ISBN : ");
+            isbnLbl.setMinimumSize(dim);
+            authorLbl = new JLabel("Author : ");
+            authorLbl.setMinimumSize(dim);
+            
+            
+            
+            title = new JTextField(100);
+            isbn = new JTextField(100);
+            author = new JTextField(100);
+            
+            JPanel titlePane = new JPanel();
+            titlePane.setLayout(new BoxLayout(titlePane, BoxLayout.X_AXIS));
+            titlePane.add(titleLbl); titlePane.add(title);
+            
+            JPanel isbnPane = new JPanel();
+            isbnPane.setLayout(new BoxLayout(isbnPane, BoxLayout.X_AXIS));
+            isbnPane.add(isbnLbl); isbnPane.add(isbn);
+            
+            JPanel authorPane = new JPanel();
+            authorPane.setLayout(new BoxLayout(authorPane, BoxLayout.X_AXIS));
+            authorPane.add(authorLbl); authorPane.add(author);
+            
+            this.setTitle("New Book Details");
+            this.add(titlePane);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(isbnPane);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(authorPane);
+        }
+        
+        public void updateUI(){
+            if(this.data != null){
+                title.setText(data.title);
+                isbn.setText(data.isbn);
+                author.setText(data.author);
+                this.setTitle("Edit Book Details");
+            }
+            super.updateUI();
+        }
+        
+        public void update(Book data){
+            this.data = data;
+        }
+        
+        public void setTitle(String str){
+            this.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createTitledBorder(str),
+                    BorderFactory.createEmptyBorder(5,5,5,5)
+                    ));
         }
     }
     
@@ -54,9 +264,14 @@ public class CatalogApp extends JFrame {
         super(frameTitle);
         initLibrary();
         
-        catList = new CategoryListPane();
-        getContentPane().add(catList,
-                BorderLayout.WEST);
+        catList = new CategoriesListPane();
+        bookList = new BooksListPane();
+        ListsPane lp = new ListsPane(catList, bookList);
+        details = new DetailsPane();
+        
+        getContentPane().setLayout(new GridLayout(1, 2));
+        getContentPane().add(lp);
+        getContentPane().add(details);
         
         /**
         infoLabel=new JLabel("unpressed", JLabel.CENTER);
