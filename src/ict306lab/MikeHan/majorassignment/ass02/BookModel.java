@@ -152,6 +152,25 @@ public class BookModel implements Serializable{
         }
         return true;
     }
+    
+    /**
+     * This function will find a category from storage
+     * @param str
+     * @return 
+     */
+    public Category findCat(String str){
+        for(int i = 0; i < cats.size(); i++){
+            if(cats.get(i).name.equals(str)){
+                return cats.get(i);
+            }
+        }
+        return null;
+    }
+    
+    public boolean newCat(String c){
+        return this.addCat(new Category(c));
+    }
+    
     /**
      * This function will return an array of all categories
      * @return 

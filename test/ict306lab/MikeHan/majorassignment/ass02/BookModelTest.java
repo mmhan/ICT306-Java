@@ -156,4 +156,29 @@ public class BookModelTest {
         assertEquals(cats[0], result);
         assertTrue(result.books.isEmpty());
     }
+
+    /**
+     * Test of findCat method, of class BookModel.
+     */
+    @Test
+    public void testFindCat() {
+        System.out.println("findCat");
+        String catName = "Comics";
+        Category result = model.findCat(catName);
+        assertEquals(catName, result.name);
+        assertEquals(3, result.getBooks().length);
+    }
+
+    /**
+     * Test of newCat method, of class BookModel.
+     */
+    @Test
+    public void testNewCat() {
+        System.out.println("newCat");
+        String c = "Uncategorized";
+        boolean expResult = true;
+        boolean result = model.newCat(c);
+        assertEquals(expResult, result);
+        assertEquals(c, model.findCat(c).name);
+    }
 }
