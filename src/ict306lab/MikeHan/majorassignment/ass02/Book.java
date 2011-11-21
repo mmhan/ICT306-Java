@@ -27,7 +27,7 @@ public class Book {
      */
     public String author = "";
     /**
-     * name of the note file that was uploaded.
+     * name of the note file
      */    
     private String notesFile = "";
     /**

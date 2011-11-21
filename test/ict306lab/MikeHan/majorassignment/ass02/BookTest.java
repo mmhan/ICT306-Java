@@ -43,7 +43,7 @@ public class BookTest {
     @Test
     public void testGetNextId() {
         System.out.println("getNextId");
-        int expResult = 0;
+        int expResult = Book.counter + 1;
         int result = Book.getNextId();
         assertEquals(expResult, result);
     }
@@ -102,10 +102,9 @@ public class BookTest {
     @Test
     public void testSetNotesFile() {
         System.out.println("setNotesFile");
-        String notesFile = "";
+        String notesFile = "yadayada";
         Book instance = new Book();
         instance.setNotesFile(notesFile);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(notesFile, instance.getNotesFile());
     }
 }
