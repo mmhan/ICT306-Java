@@ -62,7 +62,6 @@ public class BooksController {
             Book = (BookModel) input.readObject();
             return true;
         } catch (NotSerializableException e){
-            e.printStackTrace();
             return false;
         } catch (EOFException e){
             return false;
@@ -118,6 +117,10 @@ public class BooksController {
     
     public boolean editBook(int id, Book book){
         return Book.edit(id, book);
+    }
+    
+    public boolean deleteBook(int id){
+        return Book.delete(id);
     }
     
     public boolean newCategory(String cat){

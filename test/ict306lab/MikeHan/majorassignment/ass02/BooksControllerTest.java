@@ -237,4 +237,26 @@ public class BooksControllerTest {
         assertEquals(expResult, result);
         assertEquals(3, con.getAllCategory().length);
     }
+
+    /**
+     * Test of deleteBook method, of class BooksController.
+     */
+    @Test
+    public void testDeleteBook() {
+        System.out.println("deleteBook");
+        
+        String name = "Harry Potter II";
+        String isbn = "789";
+        String author = "J. K. Rowling";
+        String catStr = BooksController.UNCAT;
+        
+        Book b = con.newBook(name, isbn, author, catStr);
+        
+        boolean expResult = true;
+        Category uncat = b.getCategory();
+        int expCount = uncat.getBooks().length - 1;
+        boolean result = con.deleteBook(b.getId());
+        assertEquals(expResult, result);
+        assertEquals(expCount, uncat.getBooks().length);
+    }
 }
