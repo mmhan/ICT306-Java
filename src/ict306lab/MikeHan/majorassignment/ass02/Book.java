@@ -133,25 +133,25 @@ public class Book {
             this.category.remove(this);
         }
         this.category = category;
-        category.add(this);
+        if(category != null) category.add(this);
     }   
     
     @Override
     public String toString(){
         String str = "";
         str += "Book";
-        str += "=========="; str += "\r";
-        str += "Title : " + this.title; str += "\r";
-        str += "ISBN  : " + this.isbn; str += "\r";
-        str += "Author: " + this.author; str += "\r";
-        str += "Image : " + this.imageFile; str += "\r";
-        str += "Notes : " + this.notesFile; str += "\r";
+        str += "=========="; str += "\n";
+        str += "Title : " + this.title; str += "\n";
+        str += "ISBN  : " + this.isbn; str += "\n";
+        str += "Author: " + this.author; str += "\n";
+        str += "Image : " + this.imageFile; str += "\n";
+        str += "Notes : " + this.notesFile; str += "\n";
         if(this.category != null){
             str += "Cat   : " + this.category.name; 
         }else{
             str += "Cat   : Uncategorized";
         }
-        str += "\r";
+        str += "\n";
         return str;
     }
 }
