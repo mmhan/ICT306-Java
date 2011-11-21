@@ -140,7 +140,7 @@ public class Book implements Serializable{
     @Override
     public String toString(){
         String str = "";
-        str += "Book";
+        str += "Book \n";
         str += "=========="; str += "\n";
         str += "Title : " + this.title; str += "\n";
         str += "ISBN  : " + this.isbn; str += "\n";

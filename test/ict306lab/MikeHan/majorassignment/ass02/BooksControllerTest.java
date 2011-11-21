@@ -33,7 +33,7 @@ public class BooksControllerTest {
     @Before
     public void setUp() {
         try{
-            con.newLib("p://test/testcaseLib.lib");
+            con.newLib("p:/test/testcaseLib.lib");
             con.newBook("Tin Tin in Moscow", "1234", "Herge", "Comics");
             con.newBook("Tin Tin in Congo", "2345", "Herge", "Comics");
             con.newBook("Tin Tin in America", "3456", "Herge", "Comics");
@@ -54,7 +54,7 @@ public class BooksControllerTest {
     @Test
     public void testNewLib(){
         System.out.println("newLib");
-        String filename = "x://bla.lib";
+        String filename = "x:/bla.lib";
         BooksController instance = new BooksController();
         boolean expResult = false;
         boolean result = false;
@@ -65,7 +65,7 @@ public class BooksControllerTest {
         }
         
         try{
-            result = instance.newLib("p://test/test.lib");
+            result = instance.newLib("p:/test/test.lib");
             assertTrue(result);
         }catch(IOException e){
             fail("It shouldn't throw exception.");
@@ -78,7 +78,7 @@ public class BooksControllerTest {
     @Test
     public void testLoadLib(){
         System.out.println("loadLib");
-        String filename = "x://bla.lib";
+        String filename = "x:/bla.lib";
         BooksController instance = new BooksController();
         boolean expResult = false;
         boolean result = false;
@@ -88,7 +88,7 @@ public class BooksControllerTest {
             assertEquals(expResult, result);
         }
         
-        filename = "p://test/testLoadLib.lib";
+        filename = "p:/test/testLoadLib.lib";
         try{
             con.newLib(filename);
             con.saveLib();
@@ -118,14 +118,14 @@ public class BooksControllerTest {
         
         result = false;
         try{
-            instance.newLib("x://bla.lib");
+            instance.newLib("x:/bla.lib");
             result = instance.saveLib();
         }catch(IOException e){
             assertEquals(expResult, result);
         }        
         
         try{
-            instance.newLib("p://test/test.lib");
+            instance.newLib("p:/test/test.lib");
             instance.saveLib();
         }catch(IOException e){
             fail("This shouldn't throw an exception.");
