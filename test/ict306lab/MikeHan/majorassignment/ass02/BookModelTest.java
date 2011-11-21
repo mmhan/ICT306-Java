@@ -124,19 +124,4 @@ public class BookModelTest {
         }
         assertEquals(true, result);
     }
-
-    /**
-     * Test of findKey method, of class BookModel.
-     */
-    @Test
-    public void testFindKey() {
-        System.out.println("findKey");
-        Book book = new Book("Tin Tin - Cigars of the Pharaoh", "5364", "Herge");
-        if(model.save(book)){
-            assertEquals(model.getCount() - 1, model.findKey(book.getId()));
-            assertEquals(-1, model.findKey(231));
-        }else{
-            fail("Can't save a book");
-        }
-    }
 }

@@ -10,7 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Model of books and category, this is a modified version of CustomerModel from
+ * assignment 1. 
+ *  
  * @author mmhan
  */
 public class BookModel implements Serializable{
@@ -28,28 +30,24 @@ public class BookModel implements Serializable{
     /**
      * Storage of books
      */
-    protected Book[] books;
+    protected ArrayList<Book> books;
     /**
      * Index of customer id-s.
      */
-    protected int[] ids;
+    protected ArrayList<Integer> ids;
     
     /**
      * Storage of categories
      */
     protected Category[] cats;
-        
-    /**
-     * Size of the initial array and also incremental steps
-     */
-    static int increment = 10;
+    
     
     /**
      * Just initiate this model, with a predicted number of books
      */
     public BookModel(){
-        books = new Book[increment];
-        ids = new int[increment];
+        books = new ArrayList<Book>();
+        ids = new ArrayList<Integer>();
     }
 	
 	/**
@@ -58,9 +56,8 @@ public class BookModel implements Serializable{
      * @param size 
      */
     public BookModel(int size){
-        BookModel.increment = size;
-        books = new Book[increment];
-        ids = new int[increment];
+        books = new ArrayList<Book>(size);
+        ids = new ArrayList<Integer>(size);
     }
     
     /**
@@ -68,7 +65,7 @@ public class BookModel implements Serializable{
      * @return 
      */
     public int getCount(){
-        return count;
+        return books.size();
     }
     
     /**
@@ -78,11 +75,12 @@ public class BookModel implements Serializable{
      * @return  
      */
     public boolean save(Book book){
-        beforeSave();
-        books[count] = book;
-        ids[count] = book.getId();
-        afterSave();
-        return true;
+        if(books.add(book)){
+            ids.add(new Integer(book.getId()));
+            return true;
+        }else{
+            return false;
+        }
     }
     /**
      * Gets a book and save it 
@@ -92,11 +90,10 @@ public class BookModel implements Serializable{
      * @return 
      */
     public boolean edit(int id, Book book){
-        try{
-            books[this.findKey(id)] = book;
-        }catch(ArrayIndexOutOfBoundsException e){
-            return false;
-        }
+        int i = ids.indexOf(new Integer(id));
+        if(i == -1) return false;
+        Book bookInStorage = books.get(i);
+        bookInStorage = book;
         return true;
     }
     /**
@@ -104,8 +101,9 @@ public class BookModel implements Serializable{
      * @return 
      */
     public Book[] getAll(){
-        return Arrays.copyOfRange(books, 0, count);
+        return books.toArray(BookModel.EMPTY_BOOKS);
     }
+    
     /**
      * Find the book in storage and returns it.
      * 
@@ -113,11 +111,9 @@ public class BookModel implements Serializable{
      * @return 
      */
     public Book find(int id){
-        try{
-            return books[this.findKey(id)];
-        }catch(ArrayIndexOutOfBoundsException e){
-            return null;
-        }
+        int i = ids.indexOf(new Integer(id));
+        if(i == -1) return null;
+        return books.get(i);
     }
     /**
      * Delete the book with given id.
@@ -126,61 +122,15 @@ public class BookModel implements Serializable{
      * @return 
      */
     public boolean delete(int id){
+        
+        int i = ids.indexOf(id);
+        if(i == -1) return false;
         try{
-            List<Book> list = new ArrayList<Book>(Arrays.asList(books));
-            list.remove(books[this.findKey(id)]);
-            books = list.toArray(BookModel.EMPTY_BOOKS);
-            count--;
-            this.reconstructIdsArr();
-        }catch (ArrayIndexOutOfBoundsException e){
+            books.remove(i);
+            ids.remove(new Integer(id));
+            return true;
+        }catch(IndexOutOfBoundsException e){
             return false;
-        }
-        return true;
-    }
-    
-    /**
-     * Find the key of the book in the storage.
-     * 
-     * @param id
-     * @return 
-     */
-    protected int findKey(int id){
-       for(int i = 0; i < count; i++){
-            if(ids[i] == id){
-                return i;
-            }
-       }
-       return -1;
-    }
-    
-    /**
-     * A private method to call before saving
-     * 
-     * To resize the array of the customers if necessary
-     */
-    private void beforeSave(){
-        if(books.length > count+1) return;
-        books =  Arrays.copyOf(books, books.length + increment);
-        ids = Arrays.copyOf(ids, ids.length + increment);
-    }
-    
-    /**
-     * A private method to call after saving
-     * 
-     * To keep the count of the customers and other 
-     */
-    private void afterSave(){
-        count++;
-    }
-    
-    /**
-     * A private method to call after deleting an item from books array.
-     * This will reconstruct the 'ids' array.
-     */
-    private void reconstructIdsArr(){
-        ids = new int[books.length];
-        for(int i = 0; i < count; i++){
-            ids[i] = books[i].getId();
         }
     }
 }
