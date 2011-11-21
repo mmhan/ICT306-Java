@@ -20,6 +20,10 @@ import javax.imageio.ImageIO;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * Catalog app
+ * @author mmhan
+ */
 public class CatalogApp extends JFrame {
 
     
@@ -30,6 +34,7 @@ public class CatalogApp extends JFrame {
     BooksListPane bookList;
     DetailsPane details;
     String libFile;
+    
     /**
      * Filter for .lib files.
      */
@@ -69,12 +74,18 @@ public class CatalogApp extends JFrame {
         JList list;
         DefaultListModel model;
         
+        /**
+         * Construct pane
+         * @param name 
+         */
         public ListPane(String name){
             title = new JLabel(name, JLabel.LEFT);
             this.genList();
             this.makeList();
         }
-        
+        /**
+         * Make a generic list
+         */
         public void makeList(){
             //make list
             list = new JList(model);
@@ -95,18 +106,26 @@ public class CatalogApp extends JFrame {
             this.add(Box.createRigidArea(new Dimension(0,5)));
             this.add(listScroller);
         }
-        
+        /**
+         * Updates the UI.
+         */
         public void updateUI(){
             this.genList();
             super.updateUI();
         }
-        
+        /**
+         * To generate the list 
+         */
         protected abstract void genList();
         
-        
+        /**
+         * To be called on every selection change
+         */
         public abstract void onListItemSelected();
     }
-    
+    /**
+     * To list the categories
+     */
     class CategoriesListPane extends ListPane{
         
         Category selected;
@@ -114,11 +133,15 @@ public class CatalogApp extends JFrame {
         JLabel lbl;
         JTextField txt;
         JButton btn, selectNoneBtn;
-        
+        /**
+         * Constructor
+         */
         public CategoriesListPane(){
             super("Categories");
         }
-        
+        /**
+         * To customize the interface
+         */
         @Override
         public void makeList(){
             super.makeList();
@@ -150,7 +173,11 @@ public class CatalogApp extends JFrame {
             this.add(btn);
             this.add(Box.createRigidArea(new Dimension(0,5)));
         }
-        
+        /**
+         * Called when btn is clicked.
+         * 
+         * @param isNew 
+         */
         public void save(boolean isNew){
             if(isNew){
                 con.newCategory(txt.getText());
@@ -162,6 +189,9 @@ public class CatalogApp extends JFrame {
             details.makeComboxBox();
         }
         
+        /**
+         * Generates the list
+         */
         @Override
         public void genList() {
             if(model == null) model = new DefaultListModel();
@@ -172,7 +202,9 @@ public class CatalogApp extends JFrame {
                 model.addElement(cats[i]);
             }
         }
-        
+        /**
+         * Called when an item is selected.
+         */
         @Override
         public void onListItemSelected() {
             this.selected = (Category) list.getSelectedValue();
@@ -188,7 +220,9 @@ public class CatalogApp extends JFrame {
             bookList.updateUI();
         }
     }
-    
+    /***
+     * To create the list of books.
+     */
     class BooksListPane extends ListPane{
         
         Book selected;
@@ -244,7 +278,9 @@ public class CatalogApp extends JFrame {
             details.update(this.selected);
         }
     }
-    
+    /**
+     * JPanel of two lists.
+     */
     class ListsPane extends JPanel{
         public ListsPane(CategoriesListPane catList, BooksListPane bookList){
             this.setLayout(new GridLayout(1, 2));
@@ -252,7 +288,9 @@ public class CatalogApp extends JFrame {
             this.add(bookList);
         }
     }
-    
+    /**
+     * To create the details panel
+     */
     class DetailsPane extends JPanel{
         
         Book data;
@@ -295,6 +333,7 @@ public class CatalogApp extends JFrame {
             author.setMaximumSize(dim);
             this.makeComboxBox();
             imgField = new ImageField();
+            imgField.setSize(new Dimension(200, 200));
             
             //layouts
             JPanel titlePane = new JPanel();
@@ -456,11 +495,13 @@ public class CatalogApp extends JFrame {
             pane.add(btn);
             
             img = new ShowImage();
-            img.setSize(new Dimension(300, 300));
             
             this.add(img);
             this.add(Box.createRigidArea(new Dimension(0,5)));
             this.add(pane);
+            
+            this.setSize(new Dimension(200, 200));
+            this.setMaximumSize(new Dimension(200, 200));
         }
         
         class ShowImage extends JPanel
@@ -512,7 +553,10 @@ public class CatalogApp extends JFrame {
         }
     }
     
-    // constructor for CatalogApp object
+    /**
+     * constructor for CatalogApp object
+     * @param frameTitle
+     */
     public CatalogApp(String frameTitle){
         super(frameTitle);
         initLibrary();
@@ -672,13 +716,15 @@ public class CatalogApp extends JFrame {
         }
     }
 
+    /**
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         CatalogApp app = new CatalogApp("My Catalog");
 
         app.setSize(1024,768);
         app.setVisible(true);
-    } // end of SimplApp.main()
+    }
 
-} // end of SimplApp class
-
-// end of SimplApp.java file
+} 
