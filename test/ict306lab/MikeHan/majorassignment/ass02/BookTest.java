@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 /**
  * Test class for Book.
  * 
@@ -90,10 +92,21 @@ public class BookTest {
     @Test
     public void testSetImageFile() {
         System.out.println("setImageFile");
-        String imageFile = "bla";
+        String imageFile = "x://test/test.jpg";
         Book instance = new Book();
-        instance.setImageFile(imageFile);
-        assertEquals(imageFile, instance.getImageFile());
+        try{
+            instance.setImageFile(imageFile);
+        }catch(IOException e){
+            assertNull(instance.getImageFile());
+        }
+        
+        try{
+            imageFile = "p://test/test.jpg";
+            instance.setImageFile(imageFile);
+            assertEquals(imageFile, instance.getImageFile());
+        }catch(IOException e){
+            fail("Shouldn't throw exception");
+        }
     }
 
     /**
@@ -102,9 +115,20 @@ public class BookTest {
     @Test
     public void testSetNotesFile() {
         System.out.println("setNotesFile");
-        String notesFile = "yadayada";
+        String notesFile = "x://test/test.jpg";
         Book instance = new Book();
-        instance.setNotesFile(notesFile);
-        assertEquals(notesFile, instance.getNotesFile());
+        try{
+            instance.setNotesFile(notesFile);
+        }catch(IOException e){
+            assertNull(instance.getNotesFile());
+        }
+        
+        notesFile = "p://test/test.txt";
+        try{
+            instance.setNotesFile(notesFile);
+            assertEquals(notesFile, instance.getNotesFile());
+        }catch(IOException e){
+            fail("Shouldn't throw exception");
+        }
     }
 }

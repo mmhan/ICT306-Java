@@ -1,5 +1,7 @@
 package ict306lab.MikeHan.majorassignment.ass02;
 
+import java.io.IOException;
+
 /**
  * This is an entity class for Book objects
  * 
@@ -92,20 +94,20 @@ public class Book {
     }
 
     /**
-     * Sets the image file of cover
+     * Sets the image file of cover, test if they are readable first
      * 
      * @param imageFile
      */
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
+    public void setImageFile(String imageFile) throws IOException{
+        this.imageFile = imageFile;        
     }
 
     /**
-     * Sets the notes file of Book
+     * Sets the notes file of Book, test if they are readable first
      * 
      * @param notesFile
      */
-    public void setNotesFile(String notesFile) {
+    public void setNotesFile(String notesFile) throws IOException{
         this.notesFile = notesFile;
     }
     
