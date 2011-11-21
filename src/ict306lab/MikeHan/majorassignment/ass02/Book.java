@@ -111,4 +111,16 @@ public class Book {
         this.notesFile = notesFile;
     }
     
+    @Override
+    public String toString(){
+        String str = "";
+        str += "Book";
+        str += "==========";
+        str += "Title : " + this.title;
+        str += "ISBN  : " + this.isbn;
+        str += "Author: " + this.author;
+        str += "Image : " + this.imageFile;
+        str += "Notes : " + this.notesFile;
+        return str;
+    }
 }

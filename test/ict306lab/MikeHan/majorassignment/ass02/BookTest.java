@@ -131,4 +131,16 @@ public class BookTest {
             fail("Shouldn't throw exception");
         }
     }
+
+    /**
+     * Test of toString method, of class Book.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Book instance = new Book();
+        String expResult = "";
+        String result = instance.toString();
+        assertNotNull(result);
+    }
 }
