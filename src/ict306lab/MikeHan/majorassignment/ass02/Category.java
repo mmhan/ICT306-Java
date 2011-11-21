@@ -4,13 +4,14 @@
  */
 package ict306lab.MikeHan.majorassignment.ass02;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author mmhan
  */
-public class Category {
+public class Category implements Serializable{
     /**
      * Name of the category.
      */

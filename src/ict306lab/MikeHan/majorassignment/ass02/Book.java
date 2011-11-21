@@ -1,13 +1,14 @@
 package ict306lab.MikeHan.majorassignment.ass02;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * This is an entity class for Book objects
  * 
  * @author mmhan
  */
-public class Book {
+public class Book implements Serializable{
     /**
      * Counter for generation of ID
      */
