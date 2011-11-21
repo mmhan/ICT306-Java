@@ -105,6 +105,10 @@ public class CatalogApp extends JFrame {
         
         Category selected;
         
+        JLabel lbl;
+        JTextField txt;
+        JButton btn, selectNoneBtn;
+        
         public CategoriesListPane(){
             super("Categories");
         }
@@ -112,10 +116,25 @@ public class CatalogApp extends JFrame {
         @Override
         public void makeList(){
             super.makeList();
-            JLabel lbl = new JLabel("Add New", JLabel.LEFT);
-            JTextField txt = new JTextField(64);
-            JButton btn = new JButton("Add");
+            selectNoneBtn = new JButton("Select None");
+            selectNoneBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    catList.list.clearSelection();
+                }
+            });
             
+            lbl = new JLabel("Add New Category", JLabel.LEFT);
+            txt = new JTextField(64);
+            btn = new JButton("Add");
+            btn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    JButton src = (JButton) e.getSource();
+                    catList.save(src.getText().equals("Add"));
+                }
+            });
+            
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(selectNoneBtn);
             this.add(Box.createRigidArea(new Dimension(0,5)));
             this.add(lbl);
             this.add(Box.createRigidArea(new Dimension(0,5)));
@@ -124,7 +143,17 @@ public class CatalogApp extends JFrame {
             this.add(btn);
             this.add(Box.createRigidArea(new Dimension(0,5)));
         }
-         
+        
+        public void save(boolean isNew){
+            if(isNew){
+                con.newCategory(txt.getText());
+            }else{
+                this.selected.name = txt.getText();
+            }
+            list.clearSelection();
+            this.updateUI();
+        }
+        
         @Override
         public void genList() {
             if(model == null) model = new DefaultListModel();
@@ -139,6 +168,15 @@ public class CatalogApp extends JFrame {
         @Override
         public void onListItemSelected() {
             this.selected = (Category) list.getSelectedValue();
+            if(this.selected == null){
+                this.lbl.setText("Add New Category");
+                this.txt.setText("");
+                this.btn.setText("Add");
+            }else{
+                this.lbl.setText("Edit Category");
+                this.txt.setText(this.selected.name);
+                this.btn.setText("Edit");
+            }
             bookList.updateUI();
         }
     }
@@ -177,11 +215,25 @@ public class CatalogApp extends JFrame {
             }
         }
         
+        public void makeList(){
+            super.makeList();
+            
+            JButton selectNoneBtn = new JButton("Select None");
+            selectNoneBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    bookList.list.clearSelection();
+                }
+            });
+            
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(selectNoneBtn);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+        }
+        
         @Override
         public void onListItemSelected() {
             this.selected = (Book) list.getSelectedValue();
             details.update(this.selected);
-            details.updateUI();
         }
     }
     
@@ -199,6 +251,8 @@ public class CatalogApp extends JFrame {
         
         JTextField title, isbn, author;
         JLabel titleLbl, isbnLbl, authorLbl;
+        JButton saveBtn;
+        
         
         public DetailsPane(){
             this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -229,12 +283,24 @@ public class CatalogApp extends JFrame {
             authorPane.setLayout(new BoxLayout(authorPane, BoxLayout.X_AXIS));
             authorPane.add(authorLbl); authorPane.add(author);
             
+            saveBtn = new JButton("Add");
+            saveBtn.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JButton btn = (JButton) e.getSource();
+                    details.save(btn.getText().equals("Add"));
+                }
+            });
+            
             this.setTitle("New Book Details");
             this.add(titlePane);
             this.add(Box.createRigidArea(new Dimension(0,5)));
             this.add(isbnPane);
             this.add(Box.createRigidArea(new Dimension(0,5)));
             this.add(authorPane);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
+            this.add(saveBtn);
+            this.add(Box.createRigidArea(new Dimension(0,5)));
         }
         
         public void updateUI(){
@@ -243,15 +309,44 @@ public class CatalogApp extends JFrame {
                 isbn.setText(data.isbn);
                 author.setText(data.author);
                 this.setTitle("Edit Book Details");
+                saveBtn.setText("Edit");
+            }else{
+                try{
+                    title.setText("");
+                    isbn.setText("");
+                    author.setText("");
+                    this.setTitle("New Book Details");
+                    saveBtn.setText("Add");
+                }catch (NullPointerException e){
+                    
+                }
             }
             super.updateUI();
         }
         
         public void update(Book data){
             this.data = data;
+            this.updateUI();
         }
         
-        public void setTitle(String str){
+        public void save(boolean isNew){
+            if(isNew){
+                Book newBook = con.newBook(
+                        title.getText(), 
+                        isbn.getText(), 
+                        author.getText());
+            }else{
+                this.data.title = title.getText();
+                this.data.isbn = isbn.getText();
+                this.data.author = author.getText();
+                con.editBook(this.data.getId(), this.data);
+            }
+            Book b = null;
+            this.update(b);
+            bookList.updateUI();
+        }
+        
+        private void setTitle(String str){
             this.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createTitledBorder(str),
                     BorderFactory.createEmptyBorder(5,5,5,5)
